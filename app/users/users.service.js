@@ -1,0 +1,28 @@
+angular.module('App')
+  .factory('Users', function($firebaseArray, $firebaseObject, FirebaseUrl){
+
+    var usersRef = new Firebase(FirebaseUrl+'users');
+    var users = $firebaseArray(usersRef);
+
+    var Users = {
+      getProfile: function(uid){
+        return $firebaseObject(usersRef.child(uid));
+      },
+
+      getDisplayName: function(uid){
+        return users.$getRecord(uid).displayName;
+      },
+
+      getUserIncome: function(uid){
+        return users.$getRecord(uid).income;
+      },
+
+
+      all: users,
+      getGravatar: function(uid){
+        return '//www.gravatar.com/avatar/' + users.$getRecord(uid).emailHash;
+      }
+    };
+
+    return Users;
+  });

@@ -1,0 +1,53 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+    <h4>Let set you up</h4>
+  </div>
+
+  <form ng-submit="profileCtrl.updateProfile()">
+    <p ng-hide="profileCtrl.profile.displayName">
+      You'll need a display name before you can start chatting.
+    </p>
+
+    <div class="input-group">
+      <input required type="text" class="form-control" placeholder="Display Name" ng-model="profileCtrl.profile.displayName">
+    </div>
+    <input type="submit" class="btn btn-default" value="Set Display Name">
+  </form>
+
+  <div class="col-xs-12 col-sm-8">
+    <canvas id="doughnut"
+            ng-init="profileCtrl.doughValue()"
+            class="chart chart-doughnut"
+            chart-data="profileCtrl.doughData"
+            chart-labels="profileCtrl.doughLabels">
+    </canvas>
+  </div>
+
+  <div class="col-xs-12 col-sm-4">
+    <form ng-submit="profileCtrl.createUserplan()">
+
+      <div class="input-group">
+        <label>Income</label>
+        <input required type="number" class="form-control" placeholder="Income" ng-model="profileCtrl.income"
+               ng-keyup="profileCtrl.doughValue()">
+      </div>
+
+      <div class="input-group">
+        <label>Saving</label>
+        <input required type="number" class="form-control" placeholder="Saving" ng-model="profileCtrl.saving"
+               ng-keyup="profileCtrl.doughValue()">
+      </div>
+
+      <div class="input-group">
+        <label>Bill</label>
+        <input required type="number" class="form-control" placeholder="Bill" ng-model="profileCtrl.bill"
+               ng-keyup="profileCtrl.doughValue()">
+      </div>
+
+      <input type="submit" class="btn btn-default" value="Save">
+
+    </form>
+  </div>
+
+</div>

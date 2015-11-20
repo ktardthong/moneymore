@@ -1,0 +1,100 @@
+<nav class="navbar navbar-fixed-top white_bg">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="navbar-brand" href="#">moneymore</a></li>
+      </ul>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <div class="container">
+    <div class="col-sm-8">&nbsp;</div>
+    <div class="col-sm-4">
+      <div style="position:absolute ;z-index: 5;right: 10px;top:10px;width:220px" class="pull-right hidden-xs card">
+        <div ng-include="'/templates/overviewDashboard.template.html'"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spendable Dough-->
+  <div class="container card">
+
+    <div class="container-fluid">
+
+      <div class="row col-xs-12 col-sm-8">
+        <div ng-include="'/templates/dailySpendable.template.html'"></div>
+
+        <div class="text-center">
+          <div class="text-center ">
+            <a href="#/" class="lead">
+              <i class="ion-plus-circled"></i> Add Transaction
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+
+  <!-- Goal -->
+  <!--<p class="container">
+    <span class="lead text-capitalize text-muted">Goal</span>
+  </p>-->
+  <div class="container card">
+    new
+  </div>
+
+  <div class="container card">
+    new
+  </div>
+
+
+  <!--
+  &lt;!&ndash; Overview &ndash;&gt;
+  <span class="lead text-capitalize text-muted">Overview</span>
+
+  <div class="container card">
+
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary-outline active" ng-click="showSpendableWeek()">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Week
+        </label>
+        <label class="btn btn-primary-outline" ng-click="showSpendableMonth()">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Month
+        </label>
+      </div>
+
+  </div>
+
+
+  <div class="container">
+      <small>
+        {{ dashboardCtrl.location.city }}, {{ dashboardCtrl.location.country }} - from your Internet connectino
+      </small>
+  </div>
+  -->
+
+
+<nav mfb-menu position="br" effect="zoomin" label="hover here"
+     active-icon="ion-edit" resting-icon="ion-plus-round"
+     toggling-method="click">
+  <button mfb-button icon="paper-airplane" label="menu item"></button>
+</nav>
+
