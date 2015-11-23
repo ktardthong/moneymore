@@ -14,6 +14,8 @@
     </label>
   </div>
 </div>
+
+
 <div class="container-fluid" ng-init="overAllShow=true" ng-show="overAllShow">
 
   <div class="row">
@@ -23,14 +25,14 @@
     <div class="container-fluid">
 
       <div class="text-center boxPadding">
-        <h5>@{{ $root.data_monthlhlySpent | currency:'' }}</h5>
+        <h5>{{ $root.data_monthlhlySpent | currency:'' }}</h5>
                     <span class="text-muted">
                         <small>Spent this month</small>
                     </span>
       </div>
 
       <div class="text-center boxPadding">
-        <h5>@{{ $root.monthlyRemain }}</h5>
+        <h5>{{ $root.monthlyRemain }}</h5>
                     <span class="text-muted">
                         <small>Remaining this month</small>
                     </span>

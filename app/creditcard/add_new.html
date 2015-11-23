@@ -1,0 +1,52 @@
+<md-content layout-padding layout="column" layout-sm="column">
+
+  <div flex>
+    <form ng-submit="dashboardCtrl.cardAdd()">
+
+      <md-content class="md-padding" ng-show="dashboardCtrl.creditcardContainer">
+
+        <md-input-container flex>
+          <label>Issuer</label>
+          <md-select ng-model="dashboardCtrl.cardIssuerSelected">
+            <md-option value="">---Please select---</md-option> <!-- not selected / blank option -->
+            <md-option ng-repeat="issuer in dashboardCtrl.cardIssuer">
+              <img src="issuser.Icon" class="img-responsive" />{{ issuer.Name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex>
+          <label>Types</label>
+          <md-select ng-model="dashboardCtrl.cardTypeSelected">
+            <md-option value="">---Please select---</md-option> <!-- not selected / blank option -->
+            <md-option ng-repeat="types in dashboardCtrl.cardTypes">
+              {{ types.Name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container class="flex">
+          <label for="creditlimit">Credit limit</label>
+          <input ng-model="dashboardCtrl.cardLimit"
+                 class="ng-pristine ng-valid md-input ng-touched form-control"
+                 id="creditlimit"
+                 ng-required="true"
+                 aria-invalid="false"
+                 style="">
+        </md-input-container>
+
+
+        <md-input-container class="flex">
+          <label for="cadNote">Note</label>
+          <input ng-model="dashboardCtrl.cardNote"
+                 class="ng-pristine ng-valid md-input ng-touched form-control"
+                 id="cadNote"
+                 ng-required="false"
+                 aria-invalid="false"
+                 style="">
+        </md-input-container>
+        <md-button class="md-raised md-primary">Add</md-button>
+      </md-content>
+    </form>
+  </div>
+</md-content>

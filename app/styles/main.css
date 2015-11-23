@@ -1,7 +1,7 @@
 body {
-  padding-top: 60px;
-  background-color: #f1f1f1;
+  background-color: #fafafa;
 }
+
 
 a {
   color: #777777;
@@ -167,6 +167,14 @@ a:hover{
 
 }
 */
+.input_margin{
+  margin-top:10px;
+}
+
+.inner{
+  /*width: 50%;*/
+  margin: 0 auto;
+}
 
 
 .card {
@@ -177,6 +185,12 @@ a:hover{
   border-radius: .25rem;
   animation:fly-in-from-left .5s 1s ease both;
   transform-origin:top left;
+}
+.card_width{
+  max-width: 600px;
+}
+.card_padding{
+  padding:15px;
 }
 .card-block {
   padding: 1.25rem;
@@ -202,12 +216,11 @@ a:hover{
   }
 }
 
-.card:after {
+/*.card:after {
   position:absolute;
   font-size:.9rem;
   top:1.5rem;
   right:1rem;
-  content:"i";
   border:thin solid gray;
   color:gray;
   width:1rem;
@@ -215,7 +228,7 @@ a:hover{
   text-align:center;
   border-radius:50%;
   pointer-events:none;
-}
+}*/
 
 .borderless:focus{
   background: #f9f9f9;
@@ -285,3 +298,20 @@ a:hover{
   color: #1594A8;
   border-radius: 0;
 }
+
+
+/* Material Hack */
+
+md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+  color: #88d2db;
+}
+
+md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+  color: #1594A8;
+}
+a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
+  color: whitesmoke;
+  background-color: rgb(0,188,212);
+}
+
+/* End Material Hack */

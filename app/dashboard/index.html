@@ -1,3 +1,4 @@
+<!--
 <nav class="navbar navbar-fixed-top white_bg">
   <div class="container">
     <div class="navbar-header">
@@ -15,16 +16,38 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Profile</a></li>
-        <li><a href="#">Logout</a></li>
+        <li><a href="#" ng-click="dashboardCtrl.logout">Logout</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <md-button class="md-icon-button" aria-label="Settings">
+      <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+    </md-button>
+    <h2>
+      <span>Toolbar with Icon Buttons</span>
+    </h2>
+    <span flex></span>
+    <md-button class="md-icon-button" aria-label="Favorite">
+      <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="More">
+      <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+
+-->
+
+  <h1 class="md-display-1 inner container text-muted">Hello, {{dashboardCtrl.profile.displayName}}</h1>
+
   <div class="container">
     <div class="col-sm-8">&nbsp;</div>
-    <div class="col-sm-4">
+    <div class="hidden-sm-down col-sm-4">
       <div style="position:absolute ;z-index: 5;right: 10px;top:10px;width:220px" class="pull-right hidden-xs card">
         <div ng-include="'/templates/overviewDashboard.template.html'"></div>
       </div>
@@ -32,11 +55,11 @@
   </div>
 
   <!-- Spendable Dough-->
-  <div class="container card">
-
-    <div class="container-fluid">
+  <div class="container card card_padding">
+    <md-content class="md-padding">
 
       <div class="row col-xs-12 col-sm-8">
+
         <div ng-include="'/templates/dailySpendable.template.html'"></div>
 
         <div class="text-center">
@@ -48,53 +71,24 @@
         </div>
       </div>
 
-    </div>
+    </md-content>
   </div>
 
   <br>
 
-  <!-- Goal -->
-  <!--<p class="container">
-    <span class="lead text-capitalize text-muted">Goal</span>
-  </p>-->
-  <div class="container card">
-    new
-  </div>
 
   <div class="container card">
-    new
+    <div ng-cloak>
+      <md-content>
+        <md-tabs md-border-bottom md-autoselect md-dynamic-height="">
+          <md-tab ng-repeat="tab in dashboardCtrl.tabs"
+                  ng-disabled="tab.disabled"
+                  label="{{tab.title}}">
+            <div style="padding: 25px;">
+              <div ng-include="tab.content"></div>
+            </div>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+    </div>
   </div>
-
-
-  <!--
-  &lt;!&ndash; Overview &ndash;&gt;
-  <span class="lead text-capitalize text-muted">Overview</span>
-
-  <div class="container card">
-
-      <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary-outline active" ng-click="showSpendableWeek()">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Week
-        </label>
-        <label class="btn btn-primary-outline" ng-click="showSpendableMonth()">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Month
-        </label>
-      </div>
-
-  </div>
-
-
-  <div class="container">
-      <small>
-        {{ dashboardCtrl.location.city }}, {{ dashboardCtrl.location.country }} - from your Internet connectino
-      </small>
-  </div>
-  -->
-
-
-<nav mfb-menu position="br" effect="zoomin" label="hover here"
-     active-icon="ion-edit" resting-icon="ion-plus-round"
-     toggling-method="click">
-  <button mfb-button icon="paper-airplane" label="menu item"></button>
-</nav>
-

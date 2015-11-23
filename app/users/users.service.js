@@ -5,18 +5,26 @@ angular.module('App')
     var users = $firebaseArray(usersRef);
 
     var Users = {
+
+      userPlan:function(uid){
+        return $firebaseObject(usersRef.child(uid).child("userPlan"));
+      },
+
+      userCard:function(uid){
+        return $firebaseArray(usersRef.child(uid).child("creditcard"));
+      },
+
       getProfile: function(uid){
-        return $firebaseObject(usersRef.child(uid));
+          return $firebaseObject(usersRef.child(uid));
       },
 
       getDisplayName: function(uid){
         return users.$getRecord(uid).displayName;
       },
 
-      getUserIncome: function(uid){
-        return users.$getRecord(uid).income;
+      ref:function(uid){
+        return usersRef.child(uid);
       },
-
 
       all: users,
       getGravatar: function(uid){

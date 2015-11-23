@@ -1,21 +1,49 @@
-<div class="page-wrapper">
+<div  class="page-wrapper text-muted" ng-cloak>
+  <!-- Money quote -->
+  &quot;{{ authCtrl.randQuote.Quote }}&quot; - {{ authCtrl.randQuote.Author }}
+</div>
 
-  <div class="page-header">
-    <h1><a ui-sref="home"><img class="logo-img" src="images/logo.png" /></a> Log In</h1>
+<div class="page-wrapper card card_padding inner card_width">
+
+  <div class="page-header" align="center">
+    <h5>
+      <a ui-sref="home">
+      <img class="logo-img img-responsive" src="images/logo.gif" /></a>
+      Log In
+    </h5>
   </div>
 
   <div ng-show="authCtrl.error">
     <span>{{ authCtrl.error.message }}</span>
   </div>
 
-  <form ng-submit="authCtrl.login()">
-    <div class="input-group">
-      <input type="email" class="form-control" placeholder="Email" ng-model="authCtrl.user.email">
-    </div>
-    <div class="input-group">
-      <input type="password" class="form-control" placeholder="Password" ng-model="authCtrl.user.password">
-    </div>
-    <input type="submit" class="btn btn-default" value="Log In">
-  </form>
+  <form ng-submit="authCtrl.login()" style="max-width:400px" class="inner">
 
+    <md-content layout-padding layout="column" layout-sm="column">
+
+      <div layout="column">
+        <md-input-container class="flex">
+          <label for="email">Email</label>
+          <input ng-model="authCtrl.user.email"
+                 class="ng-pristine ng-valid md-input ng-touched form-control"
+                 id="email"
+                 aria-invalid="false"
+                 style="">
+        </md-input-container>
+
+        <md-input-container md-no-float  class="flex">
+          <label for="password">Password</label>
+          <input ng-model="authCtrl.user.password"
+                 type="password"
+                 class="ng-pristine ng-valid md-input ng-touched form-control"
+                 id="password"
+                 aria-invalid="false"
+                 style="">
+        </md-input-container>
+      </div>
+    </md-content>
+
+    <md-button class="md-raised md-primary">Login</md-button>
+  </form>
+  <md-button ui-sref="home" class="ion-ios-arrow-back"> Home </md-button>
 </div>

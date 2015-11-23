@@ -1,4 +1,4 @@
-<div class="page-wrapper">
+<div class="container card card_padding">
 
   <div class="page-header">
     <h4>Let set you up</h4>
@@ -22,30 +22,48 @@
             chart-data="profileCtrl.doughData"
             chart-labels="profileCtrl.doughLabels">
     </canvas>
+    You can spend
+    {{ profileCtrl.spendable()/30 | currency: '' }}
   </div>
+
+  <md-select ng-model="profileCtrl.currencySelected">
+    <md-option value="">---Please select---</md-option> <!-- not selected / blank option -->
+    <md-option ng-repeat="list in profileCtrl.currency ">{{ list.$id}}</md-option>
+  </md-select>
 
   <div class="col-xs-12 col-sm-4">
     <form ng-submit="profileCtrl.createUserplan()">
 
-      <div class="input-group">
-        <label>Income</label>
-        <input required type="number" class="form-control" placeholder="Income" ng-model="profileCtrl.income"
-               ng-keyup="profileCtrl.doughValue()">
-      </div>
+      <md-input-container class="flex">
+        <label for="income">Income</label>
+        <input ng-model="profileCtrl.income"
+               class="ng-pristine ng-valid md-input ng-touched form-control"
+               id="income"
+               aria-invalid="false"
+               style="">
+      </md-input-container>
 
-      <div class="input-group">
-        <label>Saving</label>
-        <input required type="number" class="form-control" placeholder="Saving" ng-model="profileCtrl.saving"
-               ng-keyup="profileCtrl.doughValue()">
-      </div>
+      <md-input-container class="flex">
+        <label for="saving">Saving</label>
+        <input ng-model="profileCtrl.saving"
+               class="ng-pristine ng-valid md-input ng-touched form-control"
+               ng-keyup="profileCtrl.doughValue()"
+               id="saving"
+               aria-invalid="false"
+               style="">
+      </md-input-container>
 
-      <div class="input-group">
-        <label>Bill</label>
-        <input required type="number" class="form-control" placeholder="Bill" ng-model="profileCtrl.bill"
-               ng-keyup="profileCtrl.doughValue()">
-      </div>
+      <md-input-container class="flex">
+        <label for="bill">Bill</label>
+        <input ng-model="profileCtrl.bill"
+               class="ng-pristine ng-valid md-input ng-touched form-control"
+               ng-keyup="profileCtrl.doughValue()"
+               id="bill"
+               aria-invalid="false"
+               style="">
+      </md-input-container>
 
-      <input type="submit" class="btn btn-default" value="Save">
+      <md-button class="md-raised md-primary">Save</md-button>
 
     </form>
   </div>

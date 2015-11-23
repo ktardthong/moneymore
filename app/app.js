@@ -14,8 +14,21 @@ angular
     'angular-md5',
     'ui.router',
     'chart.js',
-    'ng-mfb'
+    'ng-mfb',
+    'ngMaterial',
+    'ngMdIcons'
   ])
+
+  /*
+   * Material Theme
+   */
+  .config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('cyan')
+      .accentPalette('blue-grey');
+
+  })
+
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
@@ -41,6 +54,19 @@ angular
             return Auth.$requireAuth().then(function(auth){
               $state.go('home');
             }, function(error){
+              return;
+            });
+          }
+        }
+      })
+
+      .state('logout', {
+        url: '/logout',
+        resolve: {
+          auth: function ($state, Users, Auth) {
+            return Auth.$unauth().catch(function () {
+              $state.go('home');
+            }, function (error) {
               return;
             });
           }
