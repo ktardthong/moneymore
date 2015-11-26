@@ -12,14 +12,14 @@
 
     <h4>
       <strong>
-        100
+        {{dashboardCtrl.spent}}
       </strong>
     </h4>
 
     <div class="text-center">
       <small>
         from
-        100
+        {{ dashboardCtrl.profile.userPlan.dailySpendable | currency:'' }}
       </small>
     </div>
 

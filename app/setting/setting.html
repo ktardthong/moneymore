@@ -1,1 +1,70 @@
-<md-button class="md-primary" ui-sref="logout">Logout</md-button>
+  <!-- All the buttons go here-->
+<div layout layout-sm="column">
+  <md-button class="md-fab md-primary" aria-label="Profile Setting" ng-click="dashboardCtrl.profileSetting = true">
+    <h3 class="ion-person"></h3>
+    <md-tooltip md-visible="false">
+      Profile Setting
+    </md-tooltip>
+  </md-button>
+
+  <md-button class="md-fab" aria-label="Spedable Plan">
+    <h3 class="ion-pie-graph"></h3>
+    <md-tooltip md-visible="false">
+      Spendable Plan
+    </md-tooltip>
+  </md-button>
+
+  <md-button class="md-fab md-primary ion-log-out" aria-label="Spedable Plan" ui-sref="logout">
+    <md-tooltip md-visible="false">
+      Log out
+    </md-tooltip>
+  </md-button>
+</div>
+
+<!-- Profile Setting-->
+<md-content class="md-padding" layout-padding layout="column" layout-sm="column" ng-init="false" ng-show="dashboardCtrl.profileSetting">
+
+  <div layout="row">
+    <div flex offset="80">
+      <h3 class="md-headline">Profile Setting</h3>
+    </div>
+    <div flex>
+      <md-button class="md-button ion-android-close" aria-label="Close" ng-click="dashboardCtrl.profileSetting = false">
+    </div>
+  </div>
+
+
+  <form ng-submit="dashboardCtrl.profileUpdate()">
+
+    <div layout layout-sm="column">
+
+      <md-input-container class="flex">
+        <label for="firstname">First name</label>
+        <input ng-model="dashboardCtrl.userFirstname"
+               class="ng-pristine ng-valid md-input ng-touched form-control"
+               id="firstname"
+               ng-required="true"
+               placeholder=""
+               aria-invalid="false"
+               style="">
+      </md-input-container>
+
+      <md-input-container class="flex">
+        <label for="lastname">Last name</label>
+        <input ng-model="dashboardCtrl.userLastname"
+               class="ng-pristine ng-valid md-input ng-touched form-control"
+               id="lastname"
+               ng-required="true"
+               aria-invalid="false"
+               style="">
+      </md-input-container>
+
+    </div>
+
+    <md-button class="md-raised md-primary">Update</md-button>
+
+  </form>
+</md-content>
+
+
+<!--<div ng-include="'/setting/userPlan.html'"></div>-->

@@ -30,7 +30,7 @@ angular.module('App')
     }
     authCtrl.years = range;
 
-    //Randome Money Quote
+    //Random Money Quote
     authCtrl.moneyquote.all.$loaded().then(function(val){
       var randQuote = Math.floor((Math.random() * authCtrl.moneyquote.all.length ) + 1);
       if (authCtrl.moneyquote.$id = randQuote){

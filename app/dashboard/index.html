@@ -1,82 +1,10 @@
-<!--
-<nav class="navbar navbar-fixed-top white_bg">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li><a class="navbar-brand" href="#">moneymore</a></li>
-      </ul>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Profile</a></li>
-        <li><a href="#" ng-click="dashboardCtrl.logout">Logout</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-<md-toolbar>
-  <div class="md-toolbar-tools">
-    <md-button class="md-icon-button" aria-label="Settings">
-      <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-    </md-button>
-    <h2>
-      <span>Toolbar with Icon Buttons</span>
-    </h2>
-    <span flex></span>
-    <md-button class="md-icon-button" aria-label="Favorite">
-      <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-    </md-button>
-    <md-button class="md-icon-button" aria-label="More">
-      <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-    </md-button>
-  </div>
-</md-toolbar>
-
--->
-
   <h1 class="md-display-1 inner container text-muted">Hello, {{dashboardCtrl.profile.displayName}}</h1>
 
-  <div class="container">
-    <div class="col-sm-8">&nbsp;</div>
-    <div class="hidden-sm-down col-sm-4">
-      <div style="position:absolute ;z-index: 5;right: 10px;top:10px;width:220px" class="pull-right hidden-xs card">
-        <div ng-include="'/templates/overviewDashboard.template.html'"></div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Spendable Dough-->
-  <div class="container card card_padding">
-    <md-content class="md-padding">
-
-      <div class="row col-xs-12 col-sm-8">
-
-        <div ng-include="'/templates/dailySpendable.template.html'"></div>
-
-        <div class="text-center">
-          <div class="text-center ">
-            <a href="#/" class="lead">
-              <i class="ion-plus-circled"></i> Add Transaction
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </md-content>
-  </div>
 
   <br>
 
-
+  <!-- ALl those tabs-->
   <div class="container card">
     <div ng-cloak>
       <md-content>
@@ -91,4 +19,8 @@
         </md-tabs>
       </md-content>
     </div>
+  </div>
+
+  <div class="text-center">
+    {{dashboardCtrl.location.city}} - {{dashboardCtrl.location.country}} from your Internet Address
   </div>

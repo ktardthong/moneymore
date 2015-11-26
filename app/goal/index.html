@@ -1,13 +1,25 @@
-<h1 class="md-headline">Set your goal</h1>
+<md-content layout="row" layout-sm="column">
 
-<md-button class="md-fab md-mini md-primary" aria-label="Travel">
-  <i class="fa fa-plane"></i>
+  <div ng-repeat="goal in dashboardCtrl.userGoals">
+    <div class="card md-padding" flex>
+      {{ goal.type}}
+      <br>
+      {{ goal.destination }}
+      <br>
+      {{ goal.budget}}
+      <br>
+      {{ goal.dailySaving | currency:'' }}
+      <br>
+      {{ goal.targetDate }}
+    </div>
+  </div>
+
+</md-content>
+
+<md-button class="md-fab md-mini md-primary" ng-repeat="goal in dashboardCtrl.goals"
+           ng-click="dashboardCtrl.goalContainer = goal.content"
+           aria-label="{{goal.title}}">
+  <i class="{{goal.icon}}"></i>
 </md-button>
 
-<md-button class="md-fab md-mini md-primary" aria-label="Travel">
-  <i class="fa fa-car"></i>
-</md-button>
-
-<md-button class="md-fab md-mini md-primary" aria-label="Travel">
-  <i class="fa fa-home"></i>
-</md-button>
+<div ng-include="dashboardCtrl.goalContainer"></div>

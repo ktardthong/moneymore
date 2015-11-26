@@ -1,10 +1,17 @@
 angular.module('App')
-  .factory('Users', function($firebaseArray, $firebaseObject, FirebaseUrl){
+  .factory('Users', function($firebaseArray, $firebaseObject, FirebaseUrl, $q){
 
     var usersRef = new Firebase(FirebaseUrl+'users');
     var users = $firebaseArray(usersRef);
 
+    var deferred = $q.defer();
+
     var Users = {
+
+      spendable:function(uid){
+        var spendable =  users.$getRecord(uid).userPlan.income - (users.$getRecord(uid).userPlan.saving - users.$getRecord(uid).userPlan.bill);
+        return spendable;
+      },
 
       userPlan:function(uid){
         return $firebaseObject(usersRef.child(uid).child("userPlan"));
@@ -12,6 +19,10 @@ angular.module('App')
 
       userCard:function(uid){
         return $firebaseArray(usersRef.child(uid).child("creditcard"));
+      },
+
+      userGoal:function(uid){
+        return $firebaseArray(usersRef.child(uid).child("Goal"));
       },
 
       getProfile: function(uid){

@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('ProfileCtrl', function($state, md5, auth, profile, Users,Currency){
+  .controller('ProfileCtrl', function($state, $q, md5, auth, profile, Users,Currency){
 
     var profileCtrl = this;
 
@@ -41,7 +41,6 @@ angular.module('App')
       profileCtrl.user.ref(profile.$id).child("currency").set({
         currency: profileCtrl.currencySelected
       });
-      console.log(profileCtrl.currencySelected);
     };
 
 

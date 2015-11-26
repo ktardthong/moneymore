@@ -1,0 +1,67 @@
+<form ng-submit="dashboardCtrl.travel.submitGoal()" class="container card_padding card_width">
+<md-content class="md-padding" layout-padding layout="column" layout-sm="column" ng-init="false">
+
+  <md-input-container class="flex">
+    <label for="whereto">Where to?</label>
+    <input ng-model="dashboardCtrl.travel.whereto"
+           class="ng-pristine ng-valid md-input ng-touched form-control"
+           googleplace=""
+           placeholder="Where to"
+           id="whereto"
+           ng-required="true"
+           aria-invalid="false"
+           style="">
+  </md-input-container>
+
+  <md-input-container class="flex">
+    <label for="amount">Amount</label>
+    <input ng-model="dashboardCtrl.travel.amount"
+           type="number"
+           ng-keyup="dashboardCtrl.travel.dailySaving(dashboardCtrl.travel.targetDate)"
+           class="ng-pristine ng-valid md-input ng-touched form-control"
+           id="amount"
+           ng-required="true"
+           aria-invalid="false"
+           style="">
+  </md-input-container>
+
+
+  <md-content>
+    <md-datepicker ng-model="dashboardCtrl.travel.targetDate"
+                   md-min-date="dashboardCtrl.date"
+                   ng-required="true"
+                   ng-change="dashboardCtrl.travel.dailySaving(dashboardCtrl.travel.targetDate)"
+                   md-placeholder="Enter date"></md-datepicker>
+  </md-content>
+
+
+
+
+  <div ng-if="dashboardCtrl.travel.travelSpendableChange >0">
+    To save for your trip you will need to save
+    {{dashboardCtrl.travel.travelDailySaving | currency: ''}}
+    per day
+
+    <div ng-if="dashboardCtrl.travel.travelSavingDays > 30">
+      for {{dashboardCtrl.travel.travelSavingMonths | number: 0}}  months
+    </div>
+    <div ng-if="dashboardCtrl.travel.travelSavingDays < 30">
+      for {{dashboardCtrl.travel.travelSavingDays | number: 0}}  days
+    </div>
+
+    Your spendable will change from
+    {{dashboardCtrl.profile.userPlan.dailySpendable  | currency: ''}}
+    <i class="fa fa-arrow-right"></i>
+    {{dashboardCtrl.travel.travelSpendableChange  | currency: ''}}
+
+    <p>
+      <md-button class="md-raised md-primary">Create</md-button>
+    </p>
+  </div>
+  <div ng-if="dashboardCtrl.travel.travelSpendableChange < 0">
+    You should not set this goal
+  </div>
+
+
+
+</md-content>

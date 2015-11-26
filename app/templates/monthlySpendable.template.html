@@ -6,7 +6,7 @@
 
     <div class="text-center">
       <small>
-        <h6>Nov</h6>
+        <h6>{{ dashboardCtrl.date | date:'MMM' }}</h6>
       </small>
 
       <h5>
@@ -15,7 +15,7 @@
 
       <small>
         from
-        100
+        {{ dashboardCtrl.profile.userPlan.mthSpendable | currency:'' }}
       </small>
     </div>
 
