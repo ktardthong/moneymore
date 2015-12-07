@@ -1,25 +1,83 @@
-<md-content layout="row" layout-sm="column">
+<md-toolbar class="md-primary">
+  <div class="md-toolbar-tools container">
+    <md-button class="md-fab md-mini md-primary"
+               aria-label="Dashboard"
+               ui-sref="dashboard">
+      <i class="ion-ios-arrow-back"></i>
+    </md-button>
 
-  <div ng-repeat="goal in dashboardCtrl.userGoals">
-    <div class="card md-padding" flex>
-      {{ goal.type}}
-      <br>
-      {{ goal.destination }}
-      <br>
-      {{ goal.budget}}
-      <br>
-      {{ goal.dailySaving | currency:'' }}
-      <br>
-      {{ goal.targetDate }}
-    </div>
+    <h2 class="text-muted white-font">
+      <span>Goal</span>
+    </h2>
+
   </div>
+</md-toolbar>
 
-</md-content>
+<div class="container md-padding animated slideInRight">
+  <md-content>
+    <md-fab-toolbar md-open="false" count="0"
+                    md-direction="right">
 
-<md-button class="md-fab md-mini md-primary" ng-repeat="goal in dashboardCtrl.goals"
-           ng-click="dashboardCtrl.goalContainer = goal.content"
-           aria-label="{{goal.title}}">
-  <i class="{{goal.icon}}"></i>
-</md-button>
+      <md-fab-trigger class="align-with-text">
+        <md-button aria-label="menu" class="md-fab md-primary">
+          <i class="ion-plus-round"></i> Add
+        </md-button>
+      </md-fab-trigger>
 
-<div ng-include="dashboardCtrl.goalContainer"></div>
+      <md-toolbar>
+        <md-fab-actions class="md-toolbar-tools">
+          <md-button class="md-fab md-mini md-primary" ng-repeat="goal in dashboardCtrl.goals"
+                     ng-click="dashboardCtrl.goalContainer = goal.content"
+                     aria-label="{{goal.title}}">
+            <i class="{{goal.icon}}"></i>
+          </md-button>
+        </md-fab-actions>
+      </md-toolbar>
+    </md-fab-toolbar>
+    <div ng-include="dashboardCtrl.goalContainer"></div>
+  </md-content>
+
+  <br>
+
+  <md-grid-list
+    md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+    md-row-height-gt-md="1:1" md-row-height="2:2"
+    md-gutter="12px" md-gutter-gt-sm="8px">
+
+    <md-grid-tile class="white-bg"
+                  md-rowspan="2"
+                  md-colspan="2"
+                  md-colspan-sm="1"
+                  ng-repeat="goal in dashboardCtrl.userGoals">
+      <md-grid-tile-header>
+        <h3>{{ goal.type }}</h3>
+      </md-grid-tile-header>
+
+      <md-content ng-init="preview_goal.$id=true" ng-click="preview_goal.$id=false;option_goal.$id=true" ng-show="preview_goal.$id">
+        <p class="md-headline">{{ goal.destination }}</p>
+        <p class="md-title">0 of {{dashboardCtrl.user.currency.currency}} {{ goal.budget}}</p>
+      </md-content>
+      <br>
+
+      <!--<md-button  class="md-primary"
+                  ng-click="goal.$id=true">More</md-button>-->
+
+      <div ng-init="option_goal.$id=false" ng-show="option_goal.$id" ng-model="goal.$id">
+        {{ goal.budget}}
+        <br>
+        {{ goal.dailySaving | currency:'' }}
+        <br>
+        {{ goal.targetDate }}
+        <md-button  class="md-primary btn-sm"
+                    ng-click="preview_goal.$id=true;option_goal.$id=false">Hide</md-button>
+
+      </div>
+
+
+      <md-grid-tile-footer></md-grid-tile-footer>
+    </md-grid-tile>
+
+  </md-grid-list>
+
+
+</div>

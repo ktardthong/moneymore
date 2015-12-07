@@ -106,6 +106,58 @@ angular
         }
       })
 
+      .state('spendable', {
+        url: '/spendable',
+
+        controller: 'DashboardCtrl as dashboardCtrl',
+        templateUrl: 'spendable/index.html',
+        resolve:{
+          profile: function(Users, Auth){
+            return Auth.$requireAuth().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded();
+            });
+          }
+        }
+      })
+
+      .state('trends', {
+        url: '/trends',
+        controller: 'DashboardCtrl as dashboardCtrl',
+        templateUrl: 'trends/index.html',
+        resolve:{
+          profile: function(Users, Auth){
+            return Auth.$requireAuth().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded();
+            });
+          }
+        }
+      })
+
+      .state('goal', {
+        url: '/goal',
+        controller: 'DashboardCtrl as dashboardCtrl',
+        templateUrl: 'goal/index.html',
+        resolve:{
+          profile: function(Users, Auth){
+            return Auth.$requireAuth().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded();
+            });
+          }
+        }
+      })
+
+      .state('creditcard', {
+        url: '/creditcard',
+        controller: 'CreditcardCtrl as creditcardCtrl',
+        templateUrl: 'creditcard/add.html',
+        resolve:{
+          profile: function(Users, Auth){
+            return Auth.$requireAuth().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded();
+            });
+          }
+        }
+      })
 
       .state('init_setup', {
         url: '/init_setup',

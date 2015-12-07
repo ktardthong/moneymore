@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('CreditcardCtrl', function($state, md5, auth, profile, Users,Creditcard) {
+  .controller('CreditcardCtrl', function($state, md5, Auth, profile, Users,Creditcard) {
 
     var creditcardCtrl = this;
 
@@ -7,9 +7,27 @@ angular.module('App')
     creditcardCtrl.user       = Users;
     creditcardCtrl.creditcard = Creditcard;
 
-    creditcardCtrl.creditcard.ref(profile.$id).child("card").set({
+/*
+    creditcardCtrl.user.ref(profile.$id).child("card").set({
       currency: profileCtrl.currencySelected
     });
+*/
 
+
+    /* Credit cards */
+    creditcardCtrl.cardIssuer  = creditcardCtrl.creditcard.issuer;
+    creditcardCtrl.cardTypes   = creditcardCtrl.creditcard.types;
+    creditcardCtrl.userCards   = creditcardCtrl.user.userCard(profile.$id);
+
+
+    //Credit card input
+    creditcardCtrl.cardAdd = function(){
+      creditcardCtrl.user.userCard(profile.$id).$add({
+        Issuer:   creditcardCtrl.cardIssuerSelected,
+        Type:     creditcardCtrl.cardTypeSelected,
+        CardLimit:creditcardCtrl.cardLimit,
+        Note:     !creditcardCtrl.cardNote?'':creditcardCtrl.cardNote
+      });
+    };
 
   }); //end

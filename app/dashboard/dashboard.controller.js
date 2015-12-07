@@ -1,6 +1,7 @@
 angular.module('App')
   .controller('DashboardCtrl', function($state,$scope, $http,Auth,profile,Creditcard,
                                         Users,
+                                        $timeout, $mdSidenav, $mdUtil, $log,
                                         $mdDialog){
 
     var dashboardCtrl = this;
@@ -8,6 +9,7 @@ angular.module('App')
     dashboardCtrl.profile     = profile;
     dashboardCtrl.creditcard  = Creditcard;
     dashboardCtrl.user        = Users;
+    dashboardCtrl.view        = '/templates/dashboard.template.html';
 
     dashboardCtrl.creditcardContainer = false;
 
@@ -19,77 +21,12 @@ angular.module('App')
         dashboardCtrl.location = data;
     });
 
+    dashboardCtrl.doughData   = dashboardCtrl.user.doughData;
+    dashboardCtrl.doughLabels = dashboardCtrl.user.doughLabels;
 
 
+    dashboardCtrl.userCards = dashboardCtrl.user.userCard(profile.$id);
     dashboardCtrl.userGoals = dashboardCtrl.user.userGoal(profile.$id);
-
-    /*Travel variables*/
-    dashboardCtrl.travel = {
-      whereto: '',
-      amount: '',
-      travelDailySaving:0,
-      travelSavingDays:'',
-      travelSavingMonths:'',
-      travelSpendableChange: ''
-    };
-
-
-    /* Daily Saving Travel */
-    dashboardCtrl.travel.dailySaving = function(date){
-
-      var data = dashboardCtrl.checkTargetDate(date);
-      dashboardCtrl.travel.goalDate           = data.targetDate;
-      dashboardCtrl.travel.travelDailySaving  = dashboardCtrl.travel.amount/data.diffDays;
-      dashboardCtrl.travel.travelMthlySaving  = isFinite(dashboardCtrl.travel.amount/data.diffMonths)?dashboardCtrl.travel.amount/data.diffMonths:0;
-      dashboardCtrl.travel.travelSavingDays   = data.diffDays;
-      dashboardCtrl.travel.travelSavingMonths = data.diffMonths;
-      dashboardCtrl.travel.travelSpendableChange = dashboardCtrl.profile.userPlan.dailySpendable - dashboardCtrl.travel.travelDailySaving;
-    };
-
-
-    /*Submit Goal*/
-    dashboardCtrl.travel.submitGoal = function(){
-      console.log(dashboardCtrl.travel.goalDate);
-      console.log(dashboardCtrl.travel.targetDate);
-
-      dashboardCtrl.user.userGoal(profile.$id).$add({
-        type:         'travel',
-        destination:  dashboardCtrl.travel.whereto,
-        budget:       dashboardCtrl.travel.amount,
-        dailySaving:  dashboardCtrl.travel.travelDailySaving,
-        duration_day: dashboardCtrl.travel.travelSavingDays,
-        duration_mth: dashboardCtrl.travel.travelSavingMonths,
-        targetDate:   moment(dashboardCtrl.travel.targetDate).format('YYYY-MM-DD'),
-        created:      moment().format('YYYY-MM-DD H:m:s')
-      });
-
-      dashboardCtrl.user.ref(profile.$id).child("userPlan").set({
-        income:         dashboardCtrl.profile.userPlan.income,
-        saving:         dashboardCtrl.profile.userPlan.saving,
-        bill:           dashboardCtrl.profile.userPlan.bill,
-        goalSaving:     dashboardCtrl.profile.userPlan.goalSaving + dashboardCtrl.travel.travelMthlySaving,
-        mthSpendable:   dashboardCtrl.user.spendable(profile.$id) - dashboardCtrl.travel.travelMthlySaving,
-        dailySpendable: dashboardCtrl.profile.userPlan.dailySpendable - dashboardCtrl.travel.travelDailySaving,
-        updated:        Date.now()
-      });
-
-
-    }
-
-    /*Check for days and months diff for target date*/
-    dashboardCtrl.checkTargetDate = function(date){
-
-      var now         = moment();
-      var target      = moment(date);
-
-      var data = {
-        diffDays: Math.abs(now.diff(target, 'Days')),
-        diffMonths: Math.abs(now.diff(target, 'Months')),
-        targetDate: moment(date,"MM-DD-YYYY")
-      };
-      return data;
-    };
-
 
     /* Update user profile */
     dashboardCtrl.profileUpdate = function(){
@@ -107,40 +44,12 @@ angular.module('App')
                           ];
 
 
-    /*Collection of tabs*/
-    dashboardCtrl.tabs = [
-                          { title: 'Spendable',         content: '/templates/spendableCard.template.html'},
-                          { title: 'Trends',            content: '/templates/lineChartTransaction.template.html'},
-                          { title: 'Goal',              content: '/goal/index.html'},
-                          { title: 'Bill',              content: "You can bind the selected tab via the selected attribute on the md-tabs element."},
-                          { title: 'Credit card',       content: '/creditcard/add.html'},
-                          { title: 'Setting',           content: '/setting/setting.html'}
-      ];
-
-
-    /* Credit cards */
-    dashboardCtrl.cardIssuer  = dashboardCtrl.creditcard.issuer;
-    dashboardCtrl.cardTypes   = dashboardCtrl.creditcard.types;
-    dashboardCtrl.userCards   = dashboardCtrl.user.userCard(profile.$id);
-
-
-    //Credit card input
-    dashboardCtrl.cardAdd = function(){
-      dashboardCtrl.user.userCard(profile.$id).$add({
-        Issuer:   dashboardCtrl.cardIssuerSelected,
-        Type:     dashboardCtrl.cardTypeSelected,
-        CardLimit:dashboardCtrl.cardLimit,
-        Note:     !dashboardCtrl.cardNote?'':dashboardCtrl.cardNote
-      });
-    };
-
-
-    /* Daily Dough Setting */
-    dashboardCtrl.doughLabels = ["Spent", "Remaining"];
-    dashboardCtrl.doughColors = ["#8D8D8D","#87D2DA"];
-    dashboardCtrl.option      = { responsive: true,
-                                  percentageInnerCutout : 80
-                                };
+    /* View */
+    dashboardCtrl.dashboard_view      = '/templates/dashboard.template.html';
+    dashboardCtrl.spendable_view      = '/spendable/index.html';
+    dashboardCtrl.dailySpendable_view = '/templates/dailySpendable.template.html';
+    dashboardCtrl.addTransaction_view = '/templates/addTransaction.template.html';
+    dashboardCtrl.creditcard_view     = '/creditcard';
 
 
     dashboardCtrl.profile.$loaded().then(function(val) {
@@ -151,29 +60,7 @@ angular.module('App')
     });
 
 
-    /*
-    * Line graph for daily transaction
-    * */
 
-    dashboardCtrl.line_dailyLabels  = [ "January", "February", "March", "April", "May", "June", "July",
-                                        "February", "March", "April", "May", "June", "July"];
-    dashboardCtrl.line_dailySeries  = [ 'Spendable', 'Series B'];
-    dashboardCtrl.line_dailyData    = [
-                                          [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 ],
-                                          [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 86, 27, 90]
-                                        ];
-
-    /*
-     *Displaying Dough Value
-    */
-    dashboardCtrl.doughValue = function(){
-
-      dashboardCtrl.doughData   = [
-        dashboardCtrl.spent,
-        dashboardCtrl.spendable,
-      ];
-
-    }
 
     /*
      * Displaying Dough Value
@@ -186,7 +73,41 @@ angular.module('App')
       ];
 
     }
+
+
+    dashboardCtrl.addTransaction = function(){
+      console.log("test");
+    }
+
+    dashboardCtrl.rightNavclose = function(){
+
+        $mdSidenav('right').close()
+          .then(function () {
+            $log.debug("close RIGHT is done");
+          });
+    }
+    dashboardCtrl.toggleRight = buildToggler('right');
+    /**
+     * Build handler to open/close a SideNav; when animation finishes
+     * report completion in console
+     */
+    function buildToggler(navID) {
+      var debounceFn =  $mdUtil.debounce(function(){
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            $log.debug("toggle " + navID + " is done");
+          });
+      },200);
+      return debounceFn;
+    }
+
   })
+
+
+
+
+
 
   /*Google place search*/
   .directive('googleplace', function() {
@@ -210,4 +131,58 @@ angular.module('App')
           });
       }
     };
-});
+})
+
+
+  /*Daily Spendable dough*/
+  .directive('dailySpendableDough', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      templateUrl: '/templates/dailySpendable.template.html',
+      link: function (dashboardCtrl, element) {
+        dashboardCtrl.spent           = 100;
+        dashboardCtrl.dailySpendable  = 200;
+        dashboardCtrl.doughData       = [dashboardCtrl.spent,dashboardCtrl.dailySpendable];
+        dashboardCtrl.doughLabels     = ["Spent", "Remaining"];
+        dashboardCtrl.doughColors     = ["#8D8D8D","#87D2DA"];
+        dashboardCtrl.option          = {
+                                          responsive: true,
+                                          showTooltips: false,
+                                          percentageInnerCutout : 80
+                                        };
+      }
+    };
+  })
+
+  /*
+   * Line graph for daily transaction
+   */
+  .directive('transactionTrend', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      templateUrl: '/templates/lineChartTransaction.template.html',
+      link: function (dashboardCtrl, element) {
+        dashboardCtrl.line_options      = {responsive: true};
+        dashboardCtrl.line_dailyLabels  = [ "January", "February", "March", "April", "May", "June", "July",
+                                            "February", "March", "April", "May", "June", "July"];
+        dashboardCtrl.line_dailySeries  = [ 'Spendable', 'Series B'];
+        dashboardCtrl.line_dailyData    = [
+          [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 ],
+          [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 86, 27, 90]
+        ];
+      }
+    };
+  })
+
+
+  .directive('transactionAdd', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      templateUrl: '/templates/addTransaction.template.html',
+    };
+  });
+
+

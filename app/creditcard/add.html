@@ -1,26 +1,46 @@
+<md-toolbar class="md-primary">
+  <div class="md-toolbar-tools container">
+    <md-button class="md-fab md-mini md-primary"
+               aria-label="Dashboard"
+               ui-sref="dashboard">
+      <i class="ion-ios-arrow-back"></i>
+    </md-button>
 
-<div ng-if="!dashboardCtrl.userCards">nothing here</div>
+    <h2 class="text-muted white-font">
+      <span>Credit card</span>
+    </h2>
 
-<div ng-if="dashboardCtrl.userCards.length >0">
-
-  <md-content layout="row" layout-sm="column">
-  <md-list-item flex ng-repeat="card in dashboardCtrl.userCards">
-    <!--<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />-->
-    <div class="card" flex layout-padding="">
-      <h3>{{card.Issuer}}</h3>
-      <h4>{{card.Type}}</h4>
-      <p>{{card.CardLimit}}</p>
-      <progress class="progress progress-success" value="25" max="100">25%</progress>
-      <div class="pull-right">Remove</div>
-    </div>
-  </md-list-item>
-  </md-content>
-
-</div>
+  </div>
+</md-toolbar>
 
 
-<md-button class="md-primary md-raised" ng-click="dashboardCtrl.showAlert($event)" flex flex-md="100">
-  Alert Dialog
-</md-button>
+<md-content class="container md-padding animated slideInRight">
 
-<md-button class="md-primary" ng-click="dashboardCtrl.creditcardContainer = true">Add card </md-button>
+
+  <div ng-if="!creditcardCtrl.userCards">nothing here</div>
+
+  <div ng-if="creditcardCtrl.userCards.length >0">
+
+    <md-content layout="row" layout-sm="column">
+    <md-list-item flex ng-repeat="card in creditcardCtrl.userCards">
+      <!--<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />-->
+      <div class="card" flex layout-padding="">
+        <h3>{{card.Issuer}}</h3>
+        <h4>{{card.Type}}</h4>
+        <p>{{card.CardLimit}}</p>
+        <progress class="progress progress-success" value="25" max="100">25%</progress>
+        <div class="pull-right">Remove</div>
+      </div>
+    </md-list-item>
+    </md-content>
+
+  </div>
+
+
+  <md-button class="md-primary md-raised" ng-click="dashboardCtrl.showAlert($event)" flex flex-md="100">
+    Alert Dialog
+  </md-button>
+
+  <md-button class="md-primary" ng-click="dashboardCtrl.creditcardContainer = true">Add card </md-button>
+
+</md-content>

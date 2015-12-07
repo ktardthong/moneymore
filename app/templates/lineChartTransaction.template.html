@@ -4,7 +4,7 @@ lineChartTranction.template.html
 
 -->
 
-<div align="center" style="margin: 10px 0 10px 0;">
+<!--<div align="center" style="margin: 10px 0 10px 0;">
   <div class="btn-group row" data-toggle="buttons">
     <label  class="btn btn-sm btn-primary-outline active"
             ng-click="overAllShow=true;
@@ -19,11 +19,11 @@ lineChartTranction.template.html
       <input type="radio" name="options" id="option2" autocomplete="off"> Month
     </label>
   </div>
-</div>
-
+</div>-->
+<!--chart-legend  = "dashboardCtrl.true"-->
+<!--chart-series  = "dashboardCtrl.line_dailySeries"-->
 <canvas id="line" class="chart chart-line"
-        chart-data    = "dashboardCtrl.line_dailyData"
-        chart-labels  = "dashboardCtrl.line_dailyLabels"
-        chart-legend  = "dashboardCtrl.true"
-        chart-series  = "dashboardCtrl.line_dailySeries">
+        chart-data    = "line_dailyData"
+        chart-labels  = "line_dailyLabels"
+        chart-option  =  "line_options">
 </canvas>

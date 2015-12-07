@@ -1,26 +1,18 @@
-  <h1 class="md-display-1 inner container text-muted">Hello, {{dashboardCtrl.profile.displayName}}</h1>
-
-
-
-  <br>
-
-  <!-- ALl those tabs-->
-  <div class="container card">
-    <div ng-cloak>
-      <md-content>
-        <md-tabs md-border-bottom md-autoselect md-dynamic-height="">
-          <md-tab ng-repeat="tab in dashboardCtrl.tabs"
-                  ng-disabled="tab.disabled"
-                  label="{{tab.title}}">
-            <div style="padding: 25px;">
-              <div ng-include="tab.content"></div>
-            </div>
-          </md-tab>
-        </md-tabs>
-      </md-content>
-    </div>
+<md-toolbar class="md-primary">
+  <div class="md-toolbar-tools container">
+    <h2 class="text-muted white-font">
+      <span>moneymore</span>
+    </h2>
+    <span flex></span>
+    <md-button class="md-icon-button" aria-label="Favorite">
+      <md-icon class="ion-plus-round" style="color: greenyellow;"></md-icon>
+    </md-button>
   </div>
 
-  <div class="text-center">
-    {{dashboardCtrl.location.city}} - {{dashboardCtrl.location.country}} from your Internet Address
-  </div>
+</md-toolbar>
+
+<div
+      style="margin-top:10px"
+      class="container animated slideInRight"
+      ng-include="dashboardCtrl.view">
+</div>

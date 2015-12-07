@@ -26,9 +26,9 @@
 }
 
 /* Customize container */
-@media (min-width: 700px) {
+@media (min-width: 980px) {
   .container {
-    max-width: 700px;
+    max-width: 980px;
   }
 }
 .container-narrow > hr {

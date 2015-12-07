@@ -1,7 +1,11 @@
 body {
-  background-color: #fafafa;
+  background-color: #F4F4F4;
+  height: auto;
 }
 
+.white-font{
+  color: whitesmoke;
+}
 
 a {
   color: #777777;
@@ -152,7 +156,7 @@ a:hover{
   background: #99d04a;
 }
 
-.white_bg{
+.white-bg{
   background: white;
 }
 
@@ -298,6 +302,13 @@ a:hover{
   color: #1594A8;
   border-radius: 0;
 }
+.grid-container{
+  background: white;
+}
+.grid-container:hover{
+  cursor: hand;
+  border-color: #88d2db;
+}
 
 
 /* Material Hack */
@@ -316,5 +327,11 @@ a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-rai
 .md-pane-open .md-datepicker-calendar{
   background-color: white;
 }
+
+md-grid-list md-grid-tile md-grid-tile-header, md-grid-list md-grid-tile md-grid-tile-footer {
+  background: white;
+  color:      #8D8D8D;
+}
+
 
 /* End Material Hack */

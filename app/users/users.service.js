@@ -22,7 +22,8 @@ angular.module('App')
       },
 
       userGoal:function(uid){
-        return $firebaseArray(usersRef.child(uid).child("Goal"));
+        var userGoal = usersRef.child(uid).child("Goal").orderByChild("flg").equalTo(1);
+        return $firebaseArray(userGoal);
       },
 
       getProfile: function(uid){
