@@ -1,23 +1,18 @@
 angular.module('App')
-  .controller('ProfileCtrl', function($state, $q, md5, auth, profile, Users,Currency){
+  .controller('ProfileCtrl', function($state,$rootScope, $q, md5, Users,Currency){
 
     var profileCtrl = this;
 
-    profileCtrl.profile   = profile;
+    profileCtrl.profile   = $rootScope.profile;
     profileCtrl.user      = Users;
     profileCtrl.currency  = Currency;
 
+    //Userplan
+    profileCtrl.income  = profileCtrl.profile.userPlan.income;
+    profileCtrl.saving  = profileCtrl.profile.userPlan.saving;
+    profileCtrl.bill    = profileCtrl.profile.userPlan.bill;
+    profileCtrl.doughLabels     = ["Income", "Saving","Bill"];
 
-    //Get the user plan
-    profileCtrl.user.userPlan(profile.$id).$loaded().then(function(val){
-
-      profileCtrl.income  = val.income;
-      profileCtrl.saving  = val.saving;
-      profileCtrl.bill    = val.bill;
-
-      profileCtrl.doughValue();
-
-    });
 
     profileCtrl.spendable = function(){
       return profileCtrl.income - (profileCtrl.saving - profileCtrl.bill);
@@ -31,29 +26,24 @@ angular.module('App')
 
     //Create User Plan
     profileCtrl.createUserplan = function(){
-      profileCtrl.user.ref(profile.$id).child("userPlan").set({
+      profileCtrl.user.ref(profileCtrl.profile.$id).child("userPlan").set({
         income:   profileCtrl.income,
         saving:   profileCtrl.saving,
         bill:     profileCtrl.bill,
         mthSpendable:profileCtrl.spendable(),
         dailySpendable:profileCtrl.spendable()/30
       });
-      profileCtrl.user.ref(profile.$id).child("currency").set({
+      profileCtrl.user.ref(profileCtrl.profile.$id).child("currency").set({
         currency: profileCtrl.currencySelected
       });
     };
 
+    profileCtrl.doughData   = [
+      profileCtrl.income,
+      profileCtrl.saving,
+      profileCtrl.bill
+    ];
 
-    /*Displaying Dough Value*/
-    profileCtrl.doughValue = function(){
-
-      profileCtrl.doughData   = [
-        profileCtrl.income,
-        profileCtrl.saving,
-        profileCtrl.bill
-      ];
-
-    }
 
 
     /*Update profile*/

@@ -1,7 +1,8 @@
 angular.module('App')
-  .controller('AuthCtrl', function(Auth, $state, MoneyQuote){
+  .controller('AuthCtrl', function(Auth, $state, MoneyQuote,Users,md5){
 
     var authCtrl = this;
+    authCtrl.users = Users;
 
     console.log(MoneyQuote.length);
     authCtrl.moneyquote = MoneyQuote;
@@ -47,9 +48,22 @@ angular.module('App')
       });
     };;
 
+
+    //Register User
     authCtrl.register = function (){
       Auth.$createUser(authCtrl.user).then(function (user){
+
+        authCtrl.users.userRef.child(user.uid).set({
+            firstname:      authCtrl.user.firstname,
+            lastname:       authCtrl.user.firstname,
+            gender:         authCtrl.user.gender,
+            date_of_birth:  authCtrl.user.b_day+'-'+authCtrl.user.b_month+'-'+authCtrl.user.b_year,
+            emailHash: md5.createHash(authCtrl.user.email),
+            join:           moment().format('YYYY-MM-DD H:m:s')
+        });
+
         authCtrl.login();
+
       }, function (error){
         authCtrl.error = error;
       });

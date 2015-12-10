@@ -4,8 +4,18 @@
       <span>moneymore</span>
     </h2>
     <span flex></span>
+
+
+    <md-button class="md-icon-button" aria-label="Favorite" ng-click="dashboardCtrl.toggleLang('th')">
+      <md-icon class="ion-plus-round" style="color: blueviolet;">lang</md-icon>
+    </md-button>
+
     <md-button class="md-icon-button" aria-label="Favorite">
       <md-icon class="ion-plus-round" style="color: greenyellow;"></md-icon>
+    </md-button>
+
+    <md-button ui-sref="logout">
+      logout
     </md-button>
   </div>
 

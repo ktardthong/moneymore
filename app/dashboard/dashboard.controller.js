@@ -1,11 +1,17 @@
 angular.module('App')
-  .controller('DashboardCtrl', function($state,$scope, $http,Auth,profile,Creditcard,
-                                        Users,
-                                        $timeout, $mdSidenav, $mdUtil, $log,
+  .controller('DashboardCtrl', function($state,$scope,$rootScope,$http,Auth,profile,Creditcard,
+                                        Users,Transaction,
+                                        $timeout, $mdSidenav, $mdUtil, $log,$translate,
                                         $mdDialog){
 
     var dashboardCtrl = this;
 
+    dashboardCtrl.toggleLang = function (langKey) {
+      $translate.use(langKey);
+    };
+
+
+    $rootScope.profile = profile;
     dashboardCtrl.profile     = profile;
     dashboardCtrl.creditcard  = Creditcard;
     dashboardCtrl.user        = Users;
@@ -72,11 +78,6 @@ angular.module('App')
         dashboardCtrl.spendable,
       ];
 
-    }
-
-
-    dashboardCtrl.addTransaction = function(){
-      console.log("test");
     }
 
     dashboardCtrl.rightNavclose = function(){
@@ -162,13 +163,14 @@ angular.module('App')
     return {
       restrict: 'E',
       transclude: true,
+      controller: 'TransactionCtrl as transactionCtrl',
       templateUrl: '/templates/lineChartTransaction.template.html',
-      link: function (dashboardCtrl, element) {
-        dashboardCtrl.line_options      = {responsive: true};
-        dashboardCtrl.line_dailyLabels  = [ "January", "February", "March", "April", "May", "June", "July",
+      link: function (transactionCtrl, element) {
+        transactionCtrl.line_options      = {responsive: true};
+        transactionCtrl.line_dailyLabels  = [ "January", "February", "March", "April", "May", "June", "July",
                                             "February", "March", "April", "May", "June", "July"];
-        dashboardCtrl.line_dailySeries  = [ 'Spendable', 'Series B'];
-        dashboardCtrl.line_dailyData    = [
+        transactionCtrl.line_dailySeries  = [ 'Spendable', 'Series B'];
+        transactionCtrl.line_dailyData    = [
           [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 ],
           [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 86, 27, 90]
         ];
@@ -181,8 +183,66 @@ angular.module('App')
     return {
       restrict: 'E',
       transclude: true,
+      controller: 'SpendableCtrl as spendableCtrl',
       templateUrl: '/templates/addTransaction.template.html',
     };
+  })
+
+
+
+  .directive('billAdd', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      controller: 'BillCtrl as billCtrl',
+      templateUrl: '/bill/add.html'
+    };
+  })
+
+
+  .directive('creditcardAdd', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      controller: 'CreditcardCtrl as creditcardCtrl',
+      templateUrl: '/creditcard/add_new.html'
+    };
+  })
+
+
+  //Spendable Dough
+  .directive('userPlanSpendable', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      controller: 'ProfileCtrl as profileCtrl',
+      templateUrl: '/templates/userPlan.template.html',
+      link: function (profileCtrl, element) {
+
+        profileCtrl.income           = 100;
+        profileCtrl.dailySpendable  = 200;
+        profileCtrl.doughData       = [profileCtrl.spent,profileCtrl.dailySpendable];
+
+        profileCtrl.doughColors     = ["#8D8D8D","#87D2DA"];
+        profileCtrl.option          = {
+          responsive: true,
+          showTooltips: false,
+          percentageInnerCutout : 80
+        };
+      }
+    };
+  })
+
+  .directive('transactionList', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      controller: 'TransactionCtrl as transactionCtrl',
+      templateUrl: '/templates/transactionList.template.html',
+    };
   });
+
+
+
 
 

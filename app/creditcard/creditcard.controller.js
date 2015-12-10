@@ -7,12 +7,6 @@ angular.module('App')
     creditcardCtrl.user       = Users;
     creditcardCtrl.creditcard = Creditcard;
 
-/*
-    creditcardCtrl.user.ref(profile.$id).child("card").set({
-      currency: profileCtrl.currencySelected
-    });
-*/
-
 
     /* Credit cards */
     creditcardCtrl.cardIssuer  = creditcardCtrl.creditcard.issuer;

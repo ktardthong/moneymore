@@ -9,30 +9,46 @@
     <h2 class="text-muted white-font">
       <span>Credit card</span>
     </h2>
-
+    <md-button ng-click="dashboardCtrl.toggleRight()"
+               class="md-primary md-fab md-mini">
+      <i class="ion-plus-round"></i>
+    </md-button>
   </div>
 </md-toolbar>
 
 
-<md-content class="container md-padding animated slideInRight">
+<md-content class="md-padding animated slideInRight">
 
+  <div ng-if="!dashboardCtrl.userCards">nothing here</div>
 
-  <div ng-if="!creditcardCtrl.userCards">nothing here</div>
+  <div ng-if="dashboardCtrl.userCards.length >0">
+    <md-grid-list
+      md-cols-sm="1"
+      md-cols-md="2"
+      md-rows-sm="1"
+      md-cols-gt-md="6"
+      md-row-height-gt-md="1:1"
+      md-row-height="2:1"
+      md-gutter="12px"
+      md-gutter-gt-sm="8px">
 
-  <div ng-if="creditcardCtrl.userCards.length >0">
+      <md-grid-tile class="white-bg animated zoomIn"
+                    md-rowspan="2"
+                    md-colspan="2"
+                    md-colspan-sm="1"
+                    ng-repeat="card in dashboardCtrl.userCards">
+        <md-grid-tile-header>
+          <h3>{{ card.Issuer }}</h3>
+        </md-grid-tile-header>
 
-    <md-content layout="row" layout-sm="column">
-    <md-list-item flex ng-repeat="card in creditcardCtrl.userCards">
-      <!--<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />-->
-      <div class="card" flex layout-padding="">
-        <h3>{{card.Issuer}}</h3>
-        <h4>{{card.Type}}</h4>
-        <p>{{card.CardLimit}}</p>
-        <progress class="progress progress-success" value="25" max="100">25%</progress>
-        <div class="pull-right">Remove</div>
-      </div>
-    </md-list-item>
-    </md-content>
+        <md-grid-tile-footer>
+          <div class="md-actions" layout="row" layout-align="right">
+            <md-button flex>Mark as Paid</md-button>
+            <md-button flex>Remove</md-button>
+          </div>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
 
   </div>
 
@@ -44,3 +60,12 @@
   <md-button class="md-primary" ng-click="dashboardCtrl.creditcardContainer = true">Add card </md-button>
 
 </md-content>
+
+
+<!-- Side Nav Add bill -->
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+  <md-content layout-padding>
+    <creditcard-add></creditcard-add>
+  </md-content>
+</md-sidenav>
+<!--</md-content>-->

@@ -9,7 +9,10 @@
     <h2 class="text-muted white-font">
       <span>Spendable</span>
     </h2>
-
+    <md-button ng-click="dashboardCtrl.toggleRight()"
+               class="md-primary md-fab md-mini">
+      <i class="ion-plus-round"></i>
+    </md-button>
   </div>
 </md-toolbar>
 
@@ -24,7 +27,7 @@
       <!--<div flex ng-include="dashboardCtrl.dailySpendable_view"></div>-->
     </div>
 
-    <div flext>
+    <div flex>
       Overview
       <div flex>Spent this month</div>
       <div flex>Remain this month</div>
@@ -32,29 +35,28 @@
     </div>
 
     <div flex>
-      <md-button ng-click="dashboardCtrl.toggleRight()"
-                 class="md-primary md-fab">
-        <i class="ion-plus-round">Add</i>
-      </md-button>
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">This week</h1>
+      <md-toolbar class="md-theme-indigo" layout="row">
+        <div flex>
+          <h1 class="md-toolbar-tools">This week</h1>
+        </div>
+        <div flex>
+          <md-button ng-click="dashboardCtrl.toggleRight()"
+                     class="md-primary md-fab md-mini">
+            <i class="ion-plus-round"></i>
+          </md-button>
+        </div>
       </md-toolbar>
     </div>
-
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Transction</h1>
-      </md-toolbar>
-      <md-content layout-padding>
-        <div ui-view="addTransaction">
-        <transaction-add></transaction-add>
-        <md-button ng-click="dashboardCtrl.rightNavclose()" class="md-primary">
-          Close Sidenav Right
-        </md-button>
-        </div>
-      </md-content>
-    </md-sidenav>
   </md-content>
-
-
 </section>
+
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+  <md-toolbar class="md-theme-light">
+    <h1 class="md-toolbar-tools white-font">Transction</h1>
+  </md-toolbar>
+  <md-content layout-padding>
+    <div ui-view="addTransaction">
+      <transaction-add></transaction-add>
+    </div>
+  </md-content>
+</md-sidenav>

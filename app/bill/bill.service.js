@@ -1,25 +1,20 @@
 angular.module('App')
   .factory('Bill', function($firebaseArray, $firebaseObject, FirebaseUrl){
 
-    var ref = new Firebase(FirebaseUrl+'bill');
+    var ref = new Firebase(FirebaseUrl+'users');
     var arr = $firebaseArray(ref);
 
     var Bill = {
 
-      userPlan:function(uid){
-        return $firebaseObject(usersRef.child(uid).child("userPlan"));
+      getTracker:function(uid){
+        //var userGoal = usersRef.child(uid).child("Goal").orderByChild("flg").equalTo(1);
+        return $firebaseObject(ref.child(uid).child('bill_tracker'));
       },
-
-      getProfile: function(uid){
-        return $firebaseObject(usersRef.child(uid));
+      getBill:function(uid,$id){
+        return ref.child(uid).child('bill').child($id);
       },
-
-      getDisplayName: function(uid){
-        return users.$getRecord(uid).displayName;
-      },
-
-      ref:function(uid){
-        return usersRef.child(uid);
+      userBill:function(uid){
+        return $firebaseObject(ref.child(uid));
       },
 
       all: arr

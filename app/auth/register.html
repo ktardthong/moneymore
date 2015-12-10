@@ -63,9 +63,9 @@
           </md-input-container>
         </div>
 
-        <md-radio-group ng-model="data.group1" layout="row">
-          <md-radio-button value="Apple"  class="md-primary">Male</md-radio-button>
-          <md-radio-button value="Banana" class="md-primary"> Female </md-radio-button>
+        <md-radio-group ng-model="authCtrl.user.gender" layout="row">
+          <md-radio-button value="Male"  class="md-primary">Male</md-radio-button>
+          <md-radio-button value="Female" class="md-primary"> Female </md-radio-button>
         </md-radio-group>
 
         <div layout layout-sm="column">
@@ -104,6 +104,9 @@
     </form>
 
     <md-button ui-sref="home" class="ion-ios-arrow-back"> Home </md-button>
+    <div class="pull-right">
+    <md-button ui-sref="login" class="ion-ios-arrow-back"> Login </md-button>
+    </div>
 
   </div>
 </div>

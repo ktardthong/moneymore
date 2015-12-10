@@ -16,8 +16,10 @@ angular
     'chart.js',
     'ng-mfb',
     'ngMaterial',
-    'ngMdIcons'
+    'ngMdIcons',
+    'pascalprecht.translate'
   ])
+
 
   /*
    * Material Theme
@@ -29,6 +31,12 @@ angular
 
   })
 
+
+
+
+  /************************************************************
+   * StateProvider Config
+   *************************************************************/
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
@@ -62,11 +70,13 @@ angular
 
       .state('logout', {
         url: '/logout',
+        templateUrl: 'home/home.html',
         resolve: {
           auth: function ($state, Users, Auth) {
             return Auth.$unauth().catch(function () {
               $state.go('home');
             }, function (error) {
+              $state.go('home');
               return;
             });
           }
@@ -108,7 +118,6 @@ angular
 
       .state('spendable', {
         url: '/spendable',
-
         controller: 'DashboardCtrl as dashboardCtrl',
         templateUrl: 'spendable/index.html',
         resolve:{
@@ -133,6 +142,19 @@ angular
         }
       })
 
+      .state('bill', {
+        url: '/bill',
+        controller: 'DashboardCtrl as dashboardCtrl',
+        templateUrl: 'bill/index.html',
+        resolve:{
+          profile: function(Users, Auth){
+            return Auth.$requireAuth().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded();
+            });
+          }
+        }
+      })
+
       .state('goal', {
         url: '/goal',
         controller: 'DashboardCtrl as dashboardCtrl',
@@ -148,7 +170,7 @@ angular
 
       .state('creditcard', {
         url: '/creditcard',
-        controller: 'CreditcardCtrl as creditcardCtrl',
+        controller: 'DashboardCtrl as dashboardCtrl',
         templateUrl: 'creditcard/add.html',
         resolve:{
           profile: function(Users, Auth){
@@ -159,15 +181,9 @@ angular
         }
       })
 
-      .state('init_setup', {
-        url: '/init_setup',
-        templateUrl: 'init_setup/index.html'
-      })
-
-
       .state('profile', {
         url: '/profile',
-        controller: 'ProfileCtrl as profileCtrl',
+        controller: 'DashboardCtrl as dashboardCtrl',
         templateUrl: 'users/profile.html',
         resolve: {
           auth: function($state, Users, Auth){
@@ -180,16 +196,15 @@ angular
               return Users.getProfile(auth.uid).$loaded();
             });
           }
-          /*userPlan:function(Userplan, Auth){
-            return Auth.$requireAuth().then(function(auth){
-              return Userplan.getPlan(auth.uid).$loaded();
-            });
-          }*/
         }
-      });
+      })
+
+
+      ;
 
     $urlRouterProvider.otherwise('/');
   })
 
 
   .constant('FirebaseUrl', 'https://mmxyz.firebaseio.com/');
+

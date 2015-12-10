@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('SpendableCtrl', function($state,$scope, $http,Auth,Users) {
+  .controller('SpendableCtrl', function($state,$scope, $http,Auth,Users,Transaction) {
 
     var spendableCtrl = this;
 
@@ -7,8 +7,18 @@ angular.module('App')
     spendableCtrl.user        = Users;
     spendableCtrl.dashboard_view      = '/templates/dashboard.template.html';
 
+
+
     spendableCtrl.addTransaction = function(){
-      console.log("test");
+      var data =[
+                spendableCtrl.spendableAmount,
+                spendableCtrl.spendableCategories,
+                spendableCtrl.spendableWhereto,
+                spendableCtrl.spendableNote,
+                spendableCtrl.spendableDate
+                ];
+      console.log(data);
+      console.log("test Spendable");
     }
     spendableCtrl.test = function(){
       console.log("test click");

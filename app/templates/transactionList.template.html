@@ -1,0 +1,14 @@
+<!-- Transaction List template -->
+
+<md-content>
+
+  <div ng-repeat="transaction in transactionCtrl.userTransaction  | orderBy:'transDate' " class="md-padding">
+
+    {{transaction.transDate}}
+    {{transaction.category.categoryName}}
+    {{transaction.amount}}
+
+
+  </div>
+
+</md-content>
