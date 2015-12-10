@@ -20,7 +20,7 @@ angular.module('App')
       },
 
       userCard:function(uid){
-        return $firebaseArray(usersRef.child(uid).child("creditcard"));
+        return $firebaseArray(usersRef.child(uid).child("creditcard").orderByChild("flg").equalTo(1));
       },
 
       userGoal:function(uid){

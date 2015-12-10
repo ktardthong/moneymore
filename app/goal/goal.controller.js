@@ -1,11 +1,16 @@
 angular.module('App')
-  .controller('GoalCtrl', function($state,$scope, $http,Auth,profile,Creditcard,
+  .controller('GoalCtrl', function($rootScope, $state,$scope, $http,Auth,Creditcard,
                                         Users,
                                         $mdDialog) {
 
-    var goalCtrl = this;
+    var goalCtrl  = this;
+    goalCtrl.user = Users;
 
-    goalCtrl.profile = profile;
+
+    goalCtrl.profile = $rootScope.profile;
+
+
+    goalCtrl.userGoals = goalCtrl.user.userGoal(goalCtrl.profile.$id);
 
     /*Travel variables*/
     goalCtrl.travel = {

@@ -1,9 +1,9 @@
 angular.module('App')
-  .controller('CreditcardCtrl', function($state, md5, Auth, profile, Users,Creditcard) {
+  .controller('CreditcardCtrl', function($rootScope, $state, md5, Auth, Users,Creditcard) {
 
     var creditcardCtrl = this;
 
-    creditcardCtrl.profile    = profile;
+    creditcardCtrl.profile    = $rootScope.profile;
     creditcardCtrl.user       = Users;
     creditcardCtrl.creditcard = Creditcard;
 
@@ -11,12 +11,12 @@ angular.module('App')
     /* Credit cards */
     creditcardCtrl.cardIssuer  = creditcardCtrl.creditcard.issuer;
     creditcardCtrl.cardTypes   = creditcardCtrl.creditcard.types;
-    creditcardCtrl.userCards   = creditcardCtrl.user.userCard(profile.$id);
+    creditcardCtrl.userCards   = creditcardCtrl.user.userCard(creditcardCtrl.profile.$id);
 
 
     //Credit card input
     creditcardCtrl.cardAdd = function(){
-      creditcardCtrl.user.userCard(profile.$id).$add({
+      creditcardCtrl.user.userCard(creditcardCtrl.profile.$id).$add({
         Issuer:   creditcardCtrl.cardIssuerSelected,
         Type:     creditcardCtrl.cardTypeSelected,
         CardLimit:creditcardCtrl.cardLimit,
