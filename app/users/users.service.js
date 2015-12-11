@@ -16,7 +16,7 @@ angular.module('App')
       },
 
       userPlan:function(uid){
-        return $firebaseObject(usersRef.child(uid).child("userPlan"));
+        return $firebaseObject(usersRef.child(uid).child("userPlan").orderByChild("flg").equalTo(1));
       },
 
       userCard:function(uid){

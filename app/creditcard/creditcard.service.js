@@ -1,6 +1,7 @@
 angular.module('App')
   .factory('Creditcard', function($firebaseArray, $firebaseObject, FirebaseUrl){
 
+    var userRef = new Firebase(FirebaseUrl+'users');
     //Issuer
     var ref_issuer  = new Firebase(FirebaseUrl+'creditcard_issuer');
     var arr_issuer  = $firebaseArray(ref_issuer);
@@ -18,6 +19,11 @@ angular.module('App')
       userCard:function(uid){
         return $firebaseObject(ref.child(uid));
       },
+
+      getCard:function(uid,$id){
+        return userRef.child(uid).child('creditcard').child($id);
+      },
+
       all:    arr,
       issuer: arr_issuer,
       types:   arr_types

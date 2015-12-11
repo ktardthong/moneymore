@@ -17,11 +17,11 @@
 </md-toolbar>
 
 
-<md-content class="md-padding animated slideInRight">
+<div class="md-padding animated slideInRight">
 
-  <div ng-if="!dashboardCtrl.userCards">nothing here</div>
+  <div ng-if="!creditcardCtrl.userCards">nothing here</div>
 
-  <div ng-if="dashboardCtrl.userCards.length >0">
+  <div ng-if="creditcardCtrl.userCards.length >0">
     <md-grid-list
       md-cols-sm="1"
       md-cols-md="2"
@@ -36,7 +36,7 @@
                     md-rowspan="2"
                     md-colspan="2"
                     md-colspan-sm="1"
-                    ng-repeat="card in dashboardCtrl.userCards">
+                    ng-repeat="card in creditcardCtrl.userCards">
         <md-grid-tile-header>
           <h3>{{ card.Issuer }}</h3>
         </md-grid-tile-header>
@@ -53,13 +53,13 @@
   </div>
 
 
-  <md-button class="md-primary md-raised" ng-click="dashboardCtrl.showAlert($event)" flex flex-md="100">
+  <md-button class="md-primary md-raised" ng-click="creditcardCtrl.showAlert($event)" flex flex-md="100">
     Alert Dialog
   </md-button>
 
-  <md-button class="md-primary" ng-click="dashboardCtrl.creditcardContainer = true">Add card </md-button>
+  <md-button class="md-primary" ng-click="creditcardCtrl.creditcardContainer = true">Add card </md-button>
 
-</md-content>
+</div>
 
 
 <!-- Side Nav Add bill -->

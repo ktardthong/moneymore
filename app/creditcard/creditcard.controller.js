@@ -24,4 +24,10 @@ angular.module('App')
       });
     };
 
+    //Remove Credit card
+    creditcardCtrl.removeBill = function($id){
+
+      creditcardCtrl.creditcard.getCard(creditcardCtrl.profile.$id,$id).update({flg:0});
+    }
+
   }); //end
