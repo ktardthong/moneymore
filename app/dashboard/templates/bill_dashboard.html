@@ -1,0 +1,14 @@
+<!-- Dashboard Bill -->
+<div ng-if="billCtrl.bills.length == 0">
+<h1 class="text-center">
+  <i class="ion-ios-list-outline"></i>
+  <br>
+  <small class="text-muted">{{ 'KEY_NOBILL' | translate }}</small>
+</h1>
+</div>
+
+<div ng-if="billCtrl.bills.length > 0" ng-repeat="bill in billCtrl.bills">
+  {{ bill.name }}
+  {{ bill.category }}
+  {{ bill.amount }}
+</div>

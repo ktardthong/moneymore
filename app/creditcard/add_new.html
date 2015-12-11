@@ -1,25 +1,25 @@
 <md-content layout-padding layout="column" layout-sm="column">
 
   <div flex>
-    <form ng-submit="dashboardCtrl.cardAdd()">
+    <form ng-submit="creditcardCtrl.cardAdd()">
 
-      <md-content class="md-padding" ng-show="dashboardCtrl.creditcardContainer">
+      <md-content class="md-padding">
 
         <md-input-container flex>
           <label>Issuer</label>
-          <md-select ng-model="dashboardCtrl.cardIssuerSelected">
+          <md-select ng-model="creditcardCtrl.cardIssuerSelected">
             <md-option value="">---Please select---</md-option> <!-- not selected / blank option -->
-            <md-option ng-repeat="issuer in dashboardCtrl.cardIssuer">
-              <img src="issuser.Icon" class="img-responsive" />{{ issuer.Name}}
+            <md-option ng-repeat="issuer in creditcardCtrl.cardIssuer">
+              <img src="{{issuser.Icon}}" class="img-responsive" />{{ issuer.Name}}
             </md-option>
           </md-select>
         </md-input-container>
 
         <md-input-container flex>
           <label>Types</label>
-          <md-select ng-model="dashboardCtrl.cardTypeSelected">
+          <md-select ng-model="creditcardCtrl.cardTypeSelected">
             <md-option value="">---Please select---</md-option> <!-- not selected / blank option -->
-            <md-option ng-repeat="types in dashboardCtrl.cardTypes">
+            <md-option ng-repeat="types in creditcardCtrl.cardTypes">
               {{ types.Name}}
             </md-option>
           </md-select>
@@ -27,7 +27,7 @@
 
         <md-input-container class="flex">
           <label for="creditlimit">Credit limit</label>
-          <input ng-model="dashboardCtrl.cardLimit"
+          <input ng-model="creditcardCtrl.cardLimit"
                  class="ng-pristine ng-valid md-input ng-touched form-control"
                  id="creditlimit"
                  ng-required="true"
@@ -37,7 +37,7 @@
 
         <md-input-container class="flex">
           <label for="cadNote">Note</label>
-          <input ng-model="dashboardCtrl.cardNote"
+          <input ng-model="creditcardCtrl.cardNote"
                  class="ng-pristine ng-valid md-input ng-touched form-control"
                  id="cadNote"
                  ng-required="false"

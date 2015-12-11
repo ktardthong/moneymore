@@ -16,11 +16,11 @@ angular.module('App')
       },
 
       userPlan:function(uid){
-        return $firebaseObject(usersRef.child(uid).child("userPlan"));
+        return $firebaseObject(usersRef.child(uid).child("userPlan").orderByChild("flg").equalTo(1));
       },
 
       userCard:function(uid){
-        return $firebaseArray(usersRef.child(uid).child("creditcard"));
+        return $firebaseArray(usersRef.child(uid).child("creditcard").orderByChild("flg").equalTo(1));
       },
 
       userGoal:function(uid){
