@@ -9,7 +9,10 @@
     <h2 class="text-muted white-font">
       <span>Trends</span>
     </h2>
-
+    <md-button ng-click="dashboardCtrl.toggleRight()"
+               class="md-primary md-fab md-mini">
+      <i class="ion-plus-round"></i>
+    </md-button>
   </div>
 </md-toolbar>
 
@@ -26,10 +29,7 @@
     </div>
 
     <div flex>
-      <md-button ng-click="dashboardCtrl.toggleRight()"
-                 class="md-primary">
-        <i class="ion-plus-round">Add Transaction</i>
-      </md-button>
+
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">This week</h1>
       </md-toolbar>

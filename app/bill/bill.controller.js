@@ -10,6 +10,7 @@ angular.module('App')
 
     billCtrl.bills      = billCtrl.user.userBill(billCtrl.profile.$id);
 
+    billCtrl.thisMonth  = moment().format('YYYY-MM');
     //If the values are not quire put them here, so that we can add them to FB eventhough it's empty
     billCtrl.billNote ='';
     //--- end above ---
@@ -40,10 +41,36 @@ angular.module('App')
     };
 
 
+    billCtrl.checkPaid = function($id){
+      return billCtrl.bill.checkBillPaid(billCtrl.profile.$id,$id);
+    }
+
     //Remove Bill
     billCtrl.removeBill = function($id){
       billCtrl.bill.getBill(billCtrl.profile.$id,$id).update({flg:0});
     }
+
+    //Mark as paid
+    billCtrl.markPaid = function($id){
+      var obj = billCtrl.bill.billTracker(billCtrl.profile.$id,$id);
+      obj.$add(
+        {
+          bill_id:$id,
+          created:moment().format('YYYY-MM-DD')
+        }
+      ).then(function(ref) {
+        billCtrl.bill.getBill(billCtrl.profile.$id,$id).update(
+          {
+            last_paid:moment().format('YYYY-MM'),
+            updated:  moment().format('YYYY-MM-DD')
+          }
+        );
+        var id = ref.key();
+        console.log("added record with id " + id);
+        obj.$indexFor(id); // returns location in the array
+      });
+    }
+
 
 
   });

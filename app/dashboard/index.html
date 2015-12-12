@@ -5,16 +5,19 @@
     </h2>
     <span flex></span>
 
+    <h2 class="text-muted white-font">
+    <md-input-container md-no-float>
+      <label ng-if="!dashboardCtrl.profile.lang">Language</label>
+      <label ng-if="dashboardCtrl.profile.lang">{{dashboardCtrl.profile.lang}}</label>
+      <md-select ng-model="ctrl.userState" class="md-fab md-mini">
+        <md-option ng-click="dashboardCtrl.toggleLang('en')">Eng</md-option>
+        <md-option ng-click="dashboardCtrl.toggleLang('ไทย')">ไทย</md-option>
+      </md-select>
+    </md-input-container>
+    </h2>
 
-    <md-button class="md-icon-button" aria-label="Favorite" ng-click="dashboardCtrl.toggleLang('th')">
-      <md-icon class="ion-plus-round" style="color: blueviolet;">lang</md-icon>
-    </md-button>
 
-    <md-button class="md-icon-button" aria-label="Favorite">
-      <md-icon class="ion-plus-round" style="color: greenyellow;"></md-icon>
-    </md-button>
-
-    <md-button ui-sref="logout">
+    <md-button ui-sref="logout" class="md-fab md-mini">
       logout
     </md-button>
   </div>
@@ -23,6 +26,6 @@
 
 <div
       style="margin-top:10px"
-      class="container animated slideInRight"
+      class="container animated slideInRight"d
       ng-include="dashboardCtrl.view">
 </div>

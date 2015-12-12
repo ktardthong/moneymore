@@ -6,9 +6,7 @@ angular.module('App')
 
     var dashboardCtrl = this;
 
-    dashboardCtrl.toggleLang = function (langKey) {
-      $translate.use(langKey);
-    };
+
 
 
     $rootScope.profile = profile;
@@ -30,9 +28,28 @@ angular.module('App')
     dashboardCtrl.doughData   = dashboardCtrl.user.doughData;
     dashboardCtrl.doughLabels = dashboardCtrl.user.doughLabels;
 
-
+    //Call services
     dashboardCtrl.userCards = dashboardCtrl.user.userCard(profile.$id);
     dashboardCtrl.userGoals = dashboardCtrl.user.userGoal(profile.$id);
+    dashboardCtrl.billTracker = dashboardCtrl.user.billTracker(profile.$id);
+    //end services
+
+
+    //Change language
+    dashboardCtrl.toggleLang = function (langKey) {
+      $translate.use(langKey);
+      dashboardCtrl.user.ref(profile.$id).update({lang: langKey});
+    };
+
+
+    //Checkk user selected language
+    if(!dashboardCtrl.profile.lang){
+      dashboardCtrl.toggleLang('en');
+    }
+    else{
+      dashboardCtrl.toggleLang(dashboardCtrl.profile.lang);
+    }
+
 
     /* Update user profile */
     dashboardCtrl.profileUpdate = function(){
@@ -88,6 +105,8 @@ angular.module('App')
           });
     }
     dashboardCtrl.toggleRight = buildToggler('right');
+
+
     /**
      * Build handler to open/close a SideNav; when animation finishes
      * report completion in console

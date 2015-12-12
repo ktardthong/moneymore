@@ -30,7 +30,7 @@ angular.module('App')
     'FOO':            'This is a paragraph'
   });
 
-  $translateProvider.translations('th', {
+  $translateProvider.translations('ไทย', {
     'KEY_SPENDABLE': 'งบวันนี้',
     'TITLE': 'Hallo',
     'FOO': 'Dies ist ein Absatz'

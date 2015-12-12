@@ -15,6 +15,12 @@ angular.module('App')
         return $firebaseArray(usersRef.child(uid).child("bill").orderByChild("flg").equalTo(1));
       },
 
+      billTracker:function(uid){
+        return $firebaseArray(usersRef.child(uid).child("bill_tracker"));
+      },
+
+
+
       userPlan:function(uid){
         return $firebaseObject(usersRef.child(uid).child("userPlan").orderByChild("flg").equalTo(1));
       },

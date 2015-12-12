@@ -74,6 +74,14 @@ angular.module('App')
   //-- END DASHBOARD DIRECTIVES --
 
 
+  .directive('billCard',function(){
+    return {
+      restrict: 'E',
+      transclude: true,
+      controller: 'BillCtrl as billCtrl',
+      templateUrl: '/bill/card.html',
+    };
+  })
 
   /*Google place search*/
   .directive('googleplace', function() {
