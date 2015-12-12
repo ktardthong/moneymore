@@ -31,15 +31,21 @@
         <h1 class="md-toolbar-tools white-font">Bill History</h1>
       </md-toolbar>
       <section>
-        {{dashboardCtrl.billTracker}}
-        --------------------------
-        <div ng-repeat="history in dashboardCtrl.billTracker">
-          {{history.$id}}
-          <div ng-repeat="h in history.$id">
-            {{h}}
-          </div>
+        <md-content>
+        <!--{{dashboardCtrl.billTracker}}-->
+        <div ng-repeat="(key,val)  in dashboardCtrl.billTracker">
+          <md-list>
+            <md-subheader class="md-no-sticky">{{val.$id}}</md-subheader>
+            <md-list-item class="md-3-line" ng-repeat="k in val">
+              <div class="md-list-item-text" layout="column">
+              {{key}}
+              {{k.bill_id}}
+              </div>
+            </md-list-item>
+          </md-list>
+          <!--{{ key }} : {{ val }}-->
         </div>
-
+        </md-content>
       </section>
     </div>
 </section>
