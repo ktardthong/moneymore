@@ -112,8 +112,10 @@ angular.module('App')
     return {
       restrict: 'E',
       transclude: true,
-      controller: 'SpendableCtrl as spendableCtrl',
-      templateUrl: '/templates/addTransaction.template.html',
+      // controller: 'SpendableCtrl as spendableCtrl',
+      // templateUrl: '/templates/addTransaction.template.html',
+      controller: 'TransactionCtrl as transactionCtrl',
+      templateUrl: '/transaction/add.html',
     };
   })
 

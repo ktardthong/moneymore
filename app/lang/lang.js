@@ -9,6 +9,12 @@ angular.module('App')
     'KEY_CREDITCARD': 'Credit cards',
     'KEY_SETTING':    'Setting',
     'KEY_CATEGORIES': 'Categories',
+    'KEY_AMOUNT':     'Amount',
+    'KEY_TRANSTYPE':     'Transaction Type',
+    'KEY_PMTTYPE':     'Payment Type',
+    'KEY_TRANSDATE':     'Transaction Date',
+    'KEY_LOCATION':     'Location',
+    'KEY_ADDTRANS':     'Add Transaction',
 
 
     'KEY_ADDBILL':    'Add Bill',

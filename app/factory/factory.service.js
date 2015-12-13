@@ -24,6 +24,24 @@ angular.module('App')
 
   })
 
+  .factory('TransTypes', function($firebaseArray, $firebaseObject, FirebaseUrl) {
+
+    var ref = new Firebase(FirebaseUrl + 'transTypes');
+    var transTypes = $firebaseArray(ref);
+
+    return transTypes;
+
+  })
+
+  .factory('PmtTypes', function($firebaseArray, $firebaseObject, FirebaseUrl) {
+
+    var ref = new Firebase(FirebaseUrl + 'pmtTypes');
+    var pmtTypes = $firebaseArray(ref);
+
+    return pmtTypes;
+
+  })
+
 
   .factory('MoneyQuote', function($firebaseArray, $firebaseObject, FirebaseUrl) {
 

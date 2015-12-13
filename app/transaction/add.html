@@ -1,0 +1,86 @@
+<!--
+Universal template for adding transaction
+-->
+
+<form>
+
+
+   <md-input-container md-no-float>
+    <label>{{ 'KEY_AMOUNT'|translate }}</label>
+    <input required name="clientName" ng-model="transactionCtrl.amount">
+  </md-input-container>
+
+  <md-input-container flex>
+
+          <label>{{ 'KEY_CATEGORIES'|translate }}</label>
+
+          <md-select ng-model="transactionCtrl.category">
+            <md-option value="">---Please select---</md-option>
+            <md-option ng-repeat="cate in transactionCtrl.categories">
+              {{ cate.Name}}
+            </md-option>
+          </md-select>
+  </md-input-container>
+
+  <md-input-container flex>
+
+          <label>{{ 'KEY_TRANSTYPE'|translate }}</label>
+
+          <md-select ng-model="transactionCtrl.transactionType">
+            <md-option value="">---Please select---</md-option>
+            <md-option ng-repeat="transType in transactionCtrl.transTypes">
+              {{transType.name}}
+            </md-option>
+          </md-select>
+  </md-input-container>
+
+  <!-- <md-radio-group ng-model="transactionCtrl.transactionType">
+
+    <md-button data-toggle="buttons" 
+      ng-repeat="transType in transactionCtrl.transTypes" 
+      ng-value="transType.name"  
+      class="md-primary nosubmit" 
+      ng-class="{'active':transType.name == transactionCtrl.transactionType}"
+      ng-style="{'display':'inline'}" 
+      ng-click="md-hue-2">
+      {{transType.name}}
+    </md-button>
+
+  </md-radio-group>
+ -->
+  <md-input-container flex>
+
+          <label>{{ 'KEY_PMTTYPE'|translate }}</label>
+
+          <md-select ng-model="transactionCtrl.paymentType">
+            <md-option value="">---Please select---</md-option>
+            <md-option ng-repeat="pmtType in transactionCtrl.pmtTypes">
+              {{pmtType.name}}
+            </md-option>
+          </md-select>
+  </md-input-container>
+
+  <md-input-container class="flex">
+    <label for="location">{{ 'KEY_LOCATION'|translate }}</label>
+    <input ng-model="transactionCtrl.location"
+           class="ng-pristine ng-valid md-input ng-touched form-control"
+           googleplace=""
+           placeholder="Location"
+           id="location"
+           ng-required="false"
+           aria-invalid="false"
+           style="">
+  </md-input-container>
+
+  <md-input-container class="md-block">
+    <label>{{ 'KEY_NOTE'|translate }}</label>
+    <textarea ng-model="transactionCtrl.note" columns="1" md-maxlength="150" rows="2"></textarea>
+  </md-input-container>
+
+
+  <md-datepicker ng-model="transactionCtrl.transDate" md-placeholder="{{ 'KEY_TRANSDATE'|translate }}"></md-datepicker>
+
+  <br>
+
+  <md-button class="md-raised md-primary" ng-click="transactionCtrl.addTransaction()">{{ 'KEY_ADDTRANS'|translate }}</md-button>
+</form>
