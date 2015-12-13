@@ -1,20 +1,27 @@
 <!-- Dashboard CreditCard -->
 
 <div ng-if="creditcardCtrl.userCards">
+
   <md-content flex class="md-padding">
+
     <div layout="column" md-rowspan="3" md-colspan="2" md-colspan-sm="1"
          ng-repeat="card in creditcardCtrl.userCards | filter:query | orderBy:Issuer | limitTo:2">
-      <div layout="row" class="md-padding">
-        <div flex="">
-          <img src="{{card.issuer_icon}}" width="80px">
-          <i class="{{card.type_icon}}"></i>
+
+      <div layout="row" class="md-padding" layout-align="start center">
+        <div flex>
+          <img src="{{card.issuer_icon}}" width="65px">
+        </div>
+        <div flex>
+          <p>{{card.Issuer}}</p>
+          <p class="md-title">100/2000</p>
         </div>
       </div>
-      <md-divider flex layout="column"></md-divider>
     </div>
+
     <div class="text-right" ng-if="creditcardCtrl.userCards.length > 2">
       {{creditcardCtrl.userCards.length - 2 }} {{ 'KEY_MOREGOAL' | translate }}
     </div>
+
   </md-content>
 </div>
 

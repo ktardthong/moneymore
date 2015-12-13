@@ -19,31 +19,17 @@
 <!--{{spendableCtrl.user}}-->
 
 <section class="container animated slideInRight ">
-  <md-content flex layout-padding layout="row" class="wrapper">
+  <md-content flex layout-padding layout="row" layout-sm="column" class="wrapper">
 
-    <div layout="column" flex="50">
+    <div flex>
       <p class="md-title text-center">Today</p>
       <daily-spendable-dough></daily-spendable-dough>
-      <!--<div flex ng-include="dashboardCtrl.dailySpendable_view"></div>-->
     </div>
 
-    <div flex>
-      Overview
-      <div flex>Spent this month</div>
-      <div flex>Remain this month</div>
-      <div flex>Remain this year</div>
-    </div>
-
-    <div flex>
+    <div flex-auto="">
       <md-toolbar class="md-theme-indigo" layout="row">
         <div flex>
           <h1 class="md-toolbar-tools">This week</h1>
-        </div>
-        <div flex>
-          <md-button ng-click="dashboardCtrl.toggleRight()"
-                     class="md-primary md-fab md-mini">
-            <i class="ion-plus-round"></i>
-          </md-button>
         </div>
       </md-toolbar>
     </div>

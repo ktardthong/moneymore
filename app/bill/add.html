@@ -40,7 +40,7 @@
 
           <md-select ng-model="billCtrl.billCategories">
             <md-option value="">---Please select---</md-option>
-            <md-option ng-repeat="cate in billCtrl.categories">
+            <md-option ng-repeat="cate in billCtrl.categories" ng-value="cate">
               {{ cate.Name}}
             </md-option>
           </md-select>
@@ -63,7 +63,7 @@
 
           <md-select ng-model="billCtrl.billDue">
             <md-option value="">---Please select---</md-option>
-            <md-option ng-repeat="n in billCtrl.billDueRange()">
+            <md-option ng-repeat="n in billCtrl.billDueRange()" ng-value="n">
               {{ n }}
             </md-option>
           </md-select>

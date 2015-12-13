@@ -28,10 +28,13 @@ angular.module('App')
 
     //Create Bill
     billCtrl.createBill = function(){
+
+      console.log(billCtrl.billCategories);
+
       billCtrl.user.userBill(billCtrl.profile.$id).$add({
         name:     billCtrl.billName,
         amount:   billCtrl.billAmount,
-        category: billCtrl.billCategories,
+        category: billCtrl.billCategories.Name,
         note:     billCtrl.billNote,
         flg:      1,
         paid:     0,
@@ -69,6 +72,19 @@ angular.module('App')
         console.log("added record with id " + id);
         obj.$indexFor(id); // returns location in the array
       });
+    }
+
+
+    //Due in
+    billCtrl.dueIn = function($date){
+      var date = moment().format('YYYY-MM'+$date);
+
+      var start = moment(date);
+      var end   = moment();
+      end.to(start);       // "5 days ago"
+      end.to(start, true); // "5 days"
+
+      return end.to(start);
     }
 
 

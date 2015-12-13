@@ -9,8 +9,20 @@ angular.module('App')
 
     goalCtrl.profile = $rootScope.profile;
 
-
+    //Services
     goalCtrl.userGoals = goalCtrl.user.userGoal(goalCtrl.profile.$id);
+    //End services
+
+
+    goalCtrl.goalContainer ='';
+
+    /* Goals */
+    goalCtrl.goals = [
+      {title: 'Travel', content:'/goal/travel.html', icon:'fa fa-plane'},
+      {title: 'Car',    content:'/goal/car.html', icon:'fa fa-car'},
+      {title: 'Home',   content:'/goal/home.html', icon:'fa fa-home'}
+    ];
+
 
     /*Travel variables*/
     goalCtrl.travel = {

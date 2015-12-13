@@ -120,6 +120,15 @@ angular.module('App')
   })
 
 
+  .directive('goalAdd', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      controller: 'GoalCtrl as goalCtrl',
+      templateUrl: '/goal/add.html'
+    };
+  })
+
 
   .directive('billAdd', function() {
     return {
@@ -129,6 +138,7 @@ angular.module('App')
       templateUrl: '/bill/add.html'
     };
   })
+
 
   .directive('creditcardAdd', function() {
     return {

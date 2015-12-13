@@ -1,7 +1,54 @@
 <!--
 Dashboard template
 -->
+
+<md-content show-sm="" hide-gt-sm="">
+  <md-list>
+    <md-list-item class="md-3-line">
+      <div ui-sref="spendable">
+        <daily-spendable-dough></daily-spendable-dough>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-3-line md-padding ">
+
+      <div ui-sref="goal">
+        <goal-dashboard></goal-dashboard>
+      </div>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-3-line">Trend</md-list-item>
+    <md-divider></md-divider>
+
+    <md-list-item class="md-3-line">
+      <md-button class="md-fab" aria-label="Credit Card">
+        <md-icon class="material-icons md-24">credit_card</md-icon>
+        <creditcard-dashboard></creditcard-dashboard>
+      </md-button>
+    </md-list-item>
+    <md-divider></md-divider>
+
+    <!-- BIll -->
+    <md-list-item class="md-3-line" style="background: #0b97c4;">
+      <div ui-sref="bill">
+        <bill-dashboard></bill-dashboard>
+      </div>
+    </md-list-item>
+
+
+    <md-list-item class="md-3-line">Setting</md-list-item>
+    <md-divider></md-divider>
+
+  </md-list>
+</md-content>
+
+
+
 <md-grid-list
+  class="container"
+  hide-sm=""
   md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
   md-row-height-gt-md="1:1"
   md-row-height="2:2"
@@ -11,6 +58,7 @@ Dashboard template
 
   <!-- Spendable -->
   <md-grid-tile class="white-bg grid-container"  md-rowspan="2" md-colspan="2" md-colspan-sm="1"
+                md-rowspan-sm="0"
                 ui-sref="spendable">
     <md-grid-tile-header>
       <h3>{{ 'KEY_SPENDABLE' | translate }}</h3>
@@ -104,7 +152,7 @@ Dashboard template
       <h3>{{ 'KEY_SETTING' | translate }}</h3>
     </md-grid-tile-header>
     <h2 class="text-center">
-      <i class="ion-ios-gear-outline"></i>
+      <i class="material-icons md-48">settings</i>
       <br>
       <small class="text-muted">{{ 'KEY_SETTING' | translate }}</small>
     </h2>

@@ -1,6 +1,6 @@
 angular.module('App')
   .config(['$translateProvider', function ($translateProvider) {
-  $translateProvider.translations('en', {
+  $translateProvider.translations('Eng', {
     'KEY_SPENDABLE':  'Spendable',
     'KEY_GOAL':       'Goal',
     'KEY_TRANSACTION':'Transaction',

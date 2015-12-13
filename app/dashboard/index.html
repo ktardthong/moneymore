@@ -1,7 +1,9 @@
 <md-toolbar class="md-primary">
   <div class="md-toolbar-tools container">
     <h2 class="text-muted white-font">
+      <div ui-sref="dashboard">
       <span>moneymore</span>
+      </div>
     </h2>
     <span flex></span>
 
@@ -10,22 +12,21 @@
       <label ng-if="!dashboardCtrl.profile.lang">Language</label>
       <label ng-if="dashboardCtrl.profile.lang">{{dashboardCtrl.profile.lang}}</label>
       <md-select ng-model="ctrl.userState" class="md-fab md-mini">
-        <md-option ng-click="dashboardCtrl.toggleLang('en')">Eng</md-option>
+        <md-option ng-click="dashboardCtrl.toggleLang('Eng')">Eng</md-option>
         <md-option ng-click="dashboardCtrl.toggleLang('ไทย')">ไทย</md-option>
       </md-select>
     </md-input-container>
     </h2>
 
 
-    <md-button ui-sref="logout" class="md-fab md-mini">
-      logout
+    <md-button ui-sref="logout" class="md-primary md-fab md-mini">
+      <i class="ion-log-out"></i>
     </md-button>
   </div>
 
 </md-toolbar>
 
 <div
-      style="margin-top:10px"
-      class="container animated slideInRight"d
+      class="animated slideInRight md-margin"
       ng-include="dashboardCtrl.view">
 </div>

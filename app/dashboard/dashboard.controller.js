@@ -44,7 +44,7 @@ angular.module('App')
 
     //Checkk user selected language
     if(!dashboardCtrl.profile.lang){
-      dashboardCtrl.toggleLang('en');
+      dashboardCtrl.toggleLang('Eng');
     }
     else{
       dashboardCtrl.toggleLang(dashboardCtrl.profile.lang);
@@ -59,12 +59,7 @@ angular.module('App')
     };
 
 
-    /* Goals */
-    dashboardCtrl.goals = [
-                            {title: 'Travel', content:'/goal/travel.html', icon:'fa fa-plane'},
-                            {title: 'Car',    content:'/goal/car.html', icon:'fa fa-car'},
-                            {title: 'Home',   content:'/goal/home.html', icon:'fa fa-home'}
-                          ];
+
 
 
     /* View */
