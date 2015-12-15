@@ -3,5 +3,9 @@ angular.module('App')
     var ref = new Firebase(FirebaseUrl);
     var auth = $firebaseAuth(ref);
 
-    return auth;
+    var Auth = {
+      auth: $firebaseAuth(ref),
+      ref:  ref
+    };
+    return Auth;
   });

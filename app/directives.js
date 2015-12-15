@@ -74,6 +74,16 @@ angular.module('App')
   //-- END DASHBOARD DIRECTIVES --
 
 
+  //Spendable input and calculator for income,bill and saving
+  .directive('spendableSetting',function(){
+    return {
+      restrict: 'E',
+      transclude: true,
+      controller: 'ProfileCtrl as profileCtrl',
+      templateUrl: '/setting/userPlan.html'
+    };
+  })
+
   .directive('billCard',function(){
     return {
       restrict: 'E',
@@ -156,20 +166,7 @@ angular.module('App')
       restrict: 'E',
       transclude: true,
       controller: 'ProfileCtrl as profileCtrl',
-      templateUrl: '/templates/userPlan.template.html',
-      link: function (profileCtrl, element) {
-
-        profileCtrl.income           = 100;
-        profileCtrl.dailySpendable  = 200;
-        profileCtrl.doughData       = [profileCtrl.spent,profileCtrl.dailySpendable];
-
-        profileCtrl.doughColors     = ["#8D8D8D","#87D2DA"];
-        profileCtrl.option          = {
-          responsive: true,
-          showTooltips: false,
-          percentageInnerCutout : 80
-        };
-      }
+      templateUrl: '/templates/userPlan.template.html'
     };
   })
 

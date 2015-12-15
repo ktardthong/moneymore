@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('ProfileCtrl', function($state,$rootScope, $q, md5, Users,Currency){
+  .controller('ProfileCtrl', function($scope,$state,$rootScope, $q, md5, Users,Currency){
 
     var profileCtrl = this;
 
@@ -7,21 +7,37 @@ angular.module('App')
     profileCtrl.user      = Users;
     profileCtrl.currency  = Currency;
 
+
+
     //Userplan
-    profileCtrl.income  = profileCtrl.profile.userPlan.income;
+    profileCtrl.income  = profileCtrl.profile.userPlan.income ;
     profileCtrl.saving  = profileCtrl.profile.userPlan.saving;
     profileCtrl.bill    = profileCtrl.profile.userPlan.bill;
     profileCtrl.doughLabels     = ["Income", "Saving","Bill"];
 
 
+    //If data can be null
+    profileCtrl.currencySelected = '';
+    //end
+
+
     profileCtrl.spendable = function(){
-      return profileCtrl.income - (profileCtrl.saving - profileCtrl.bill);
+      return profileCtrl.income - profileCtrl.saving - profileCtrl.bill;
     };
 
 
     /* Dough Setting*/
     profileCtrl.doughLabels = ["Income", "Saving", "Bills"];
     /* End Dough Setting */
+
+
+    //Save job
+    profileCtrl.saveJob = function(){
+      console.log(profileCtrl.jobSelected);
+      profileCtrl.user.ref(profileCtrl.profile.$id).set({
+        job:profileCtrl.jobSelected
+      })
+    };
 
 
     //Create User Plan
@@ -31,12 +47,22 @@ angular.module('App')
         saving:   profileCtrl.saving,
         bill:     profileCtrl.bill,
         mthSpendable:profileCtrl.spendable(),
-        dailySpendable:profileCtrl.spendable()/30
+        dailySpendable:profileCtrl.spendable()/30,
+        complete_setup: true
       });
       profileCtrl.user.ref(profileCtrl.profile.$id).child("currency").set({
         currency: profileCtrl.currencySelected
       });
     };
+
+
+    profileCtrl.updateChart = function(){
+      profileCtrl.doughData   = [
+        profileCtrl.income,
+        profileCtrl.saving,
+        profileCtrl.bill
+      ]
+    }
 
     profileCtrl.doughData   = [
       profileCtrl.income,
@@ -46,10 +72,12 @@ angular.module('App')
 
 
 
+
     /*Update profile*/
     profileCtrl.updateProfile = function(){
-
-      profileCtrl.profile.emailHash = md5.createHash(auth.password.email);
+      profileCtrl.profile.firstname = profileCtrl.firstname;
+      profileCtrl.profile.lastname  = profileCtrl.lastname;
+      profileCtrl.profile.emailHash = md5.createHash(profileCtrl.email);
       profileCtrl.profile.$save();
 
     };
