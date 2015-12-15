@@ -1,12 +1,12 @@
 <!-- Travel goal submit -->
 
-<form ng-submit="dashboardCtrl.travel.submitGoal()">
+<form ng-submit="goalCtrl.travel.submitGoal()">
 
   <md-content class="md-padding" layout-padding layout="column" layout-sm="column" ng-init="false">
 
     <md-input-container class="flex">
       <label for="whereto">Where to?</label>
-      <input ng-model="dashboardCtrl.travel.whereto"
+      <input ng-model="goalCtrl.travel.whereto"
              class="ng-pristine ng-valid md-input ng-touched form-control"
              googleplace=""
              placeholder="Where to"
@@ -18,9 +18,9 @@
 
     <md-input-container class="flex">
       <label for="amount">Amount</label>
-      <input ng-model="dashboardCtrl.travel.amount"
+      <input ng-model="goalCtrl.travel.amount"
              type="number"
-             ng-keyup="dashboardCtrl.travel.dailySaving(dashboardCtrl.travel.targetDate)"
+             ng-keyup="goalCtrl.travel.dailySaving(goalCtrl.travel.targetDate)"
              class="ng-pristine ng-valid md-input ng-touched form-control"
              id="amount"
              ng-required="true"
@@ -30,38 +30,38 @@
 
 
     <md-content>
-      <md-datepicker ng-model="dashboardCtrl.travel.targetDate"
-                     md-min-date="dashboardCtrl.date"
+      <md-datepicker ng-model="goalCtrl.travel.targetDate"
+                     md-min-date="goalCtrl.date"
                      ng-required="true"
-                     ng-change="dashboardCtrl.travel.dailySaving(dashboardCtrl.travel.targetDate)"
+                     ng-change="goalCtrl.travel.dailySaving(goalCtrl.travel.targetDate)"
                      md-placeholder="Enter date"></md-datepicker>
     </md-content>
 
 
 
 
-    <div ng-if="dashboardCtrl.travel.travelSpendableChange >0">
+    <div ng-if="goalCtrl.travel.travelSpendableChange >0">
       To save for your trip you will need to save
-      {{dashboardCtrl.travel.travelDailySaving | currency: ''}}
+      {{goalCtrl.travel.travelDailySaving | currency: ''}}
       per day
 
-      <div ng-if="dashboardCtrl.travel.travelSavingDays > 30">
-        for {{dashboardCtrl.travel.travelSavingMonths | number: 0}}  months
+      <div ng-if="goalCtrl.travel.travelSavingDays > 30">
+        for {{goalCtrl.travel.travelSavingMonths | number: 0}}  months
       </div>
-      <div ng-if="dashboardCtrl.travel.travelSavingDays < 30">
-        for {{dashboardCtrl.travel.travelSavingDays | number: 0}}  days
+      <div ng-if="goalCtrl.travel.travelSavingDays < 30">
+        for {{goalCtrl.travel.travelSavingDays | number: 0}}  days
       </div>
 
       Your spendable will change from
-      {{dashboardCtrl.profile.userPlan.dailySpendable  | currency: ''}}
+      {{goalCtrl.profile.userPlan.dailySpendable  | currency: ''}}
       <i class="fa fa-arrow-right"></i>
-      {{dashboardCtrl.travel.travelSpendableChange  | currency: ''}}
+      {{goalCtrl.travel.travelSpendableChange  | currency: ''}}
 
       <p>
         <md-button class="md-raised md-primary">Create</md-button>
       </p>
     </div>
-    <div ng-if="dashboardCtrl.travel.travelSpendableChange < 0">
+    <div ng-if="goalCtrl.travel.travelSpendableChange < 0">
       You should not set this goal
     </div>
 

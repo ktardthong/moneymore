@@ -2,9 +2,9 @@ angular.module('App')
   .controller('AuthCtrl', function(Auth, $state, MoneyQuote,Users,md5){
 
     var authCtrl = this;
-    authCtrl.users = Users;
+    authCtrl.users  = Users;
+    authCtrl.auth   = Auth;
 
-    console.log(MoneyQuote.length);
     authCtrl.moneyquote = MoneyQuote;
 
     authCtrl.user = {
@@ -40,8 +40,36 @@ angular.module('App')
     });
 
 
+    //Register with facebook
+    authCtrl.registerFB = function(){
+      authCtrl.auth.ref.authWithOAuthPopup("facebook", function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          authCtrl.users.userRef.child('facebook:'+authData.facebook.id).set({
+            firstname:        authData.facebook.cachedUserProfile.first_name,
+            lastname:         authData.facebook.cachedUserProfile.last_name,
+            profile_image:    authData.facebook.profileImageURL,
+            gender:           authData.facebook.cachedUserProfile.gender,
+            date_of_birth:    authData.facebook.cachedUserProfile.birthday,
+            locale:           authData.facebook.cachedUserProfile.locale,
+            fb_locationID:    authData.facebook.cachedUserProfile.location.id,
+            fb_location_name: authData.facebook.cachedUserProfile.location.name,
+            date_of_birth:    authData.facebook.cachedUserProfile.birthday,
+            emailHash:        md5.createHash(authData.facebook.cachedUserProfile.email),
+            join:             moment().format('YYYY-MM-DD H:m:s')
+          });
+          $state.go('home');
+        }
+      }, {
+        scope: "email,user_likes" // the permissions requested
+      });
+
+    }
+
+
     authCtrl.login = function (){
-      Auth.$authWithPassword(authCtrl.user).then(function (auth){
+      Auth.auth.$authWithPassword(authCtrl.user).then(function (auth){
         $state.go('home');
       }, function (error){
         authCtrl.error = error;
@@ -51,15 +79,25 @@ angular.module('App')
 
     //Register User
     authCtrl.register = function (){
-      Auth.$createUser(authCtrl.user).then(function (user){
+
+      Auth.auth.$createUser(authCtrl.user).then(function (user){
 
         authCtrl.users.userRef.child(user.uid).set({
             firstname:      authCtrl.user.firstname,
-            lastname:       authCtrl.user.firstname,
+            lastname:       authCtrl.user.lastname,
             gender:         authCtrl.user.gender,
             date_of_birth:  authCtrl.user.b_day+'-'+authCtrl.user.b_month+'-'+authCtrl.user.b_year,
             emailHash: md5.createHash(authCtrl.user.email),
             join:           moment().format('YYYY-MM-DD H:m:s')
+        });
+
+        authCtrl.users.userRef.child(user.uid+'userPlan').set({
+            income:         null,
+            saving:         null,
+            bill:           null,
+            goal:           null,
+            mthSpendable:   null,
+            dailySpendable: null,
         });
 
         authCtrl.login();

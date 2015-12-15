@@ -1,6 +1,6 @@
 angular.module('App')
   .controller('DashboardCtrl', function($state,$scope,$rootScope,$http,Auth,profile,Creditcard,
-                                        Users,Transaction,
+                                        Users,Transaction, Jobs,$mdToast, $document,
                                         $timeout, $mdSidenav, $mdUtil, $log,$translate,
                                         $mdDialog){
 
@@ -10,6 +10,7 @@ angular.module('App')
 
 
     $rootScope.profile = profile;
+    dashboardCtrl.jobs        = Jobs,
     dashboardCtrl.profile     = profile;
     dashboardCtrl.creditcard  = Creditcard;
     dashboardCtrl.user        = Users;
@@ -74,23 +75,9 @@ angular.module('App')
       dashboardCtrl.userFirstname = dashboardCtrl.profile.firstname;
       dashboardCtrl.userLastname  = dashboardCtrl.profile.lastname;
       dashboardCtrl.spent         = 100;
-      dashboardCtrl.spendable     = dashboardCtrl.profile.userPlan.dailySpendable - dashboardCtrl.spent;
+      dashboardCtrl.spendable     = dashboardCtrl.profile.dailySpendable - dashboardCtrl.spent;
     });
 
-
-
-
-    /*
-     * Displaying Dough Value
-     */
-    dashboardCtrl.monthlyDoughValue = function(){
-
-      dashboardCtrl.montlyDoughData   = [
-        dashboardCtrl.spent,
-        dashboardCtrl.spendable,
-      ];
-
-    }
 
     dashboardCtrl.rightNavclose = function(){
 

@@ -29,8 +29,6 @@ angular.module('App')
     //Create Bill
     billCtrl.createBill = function(){
 
-      console.log(billCtrl.billCategories);
-
       billCtrl.user.userBill(billCtrl.profile.$id).$add({
         name:     billCtrl.billName,
         amount:   billCtrl.billAmount,

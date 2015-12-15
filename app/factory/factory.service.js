@@ -5,9 +5,16 @@
 angular.module('App')
 
 
+  .factory('Jobs', function($firebaseArray, $firebaseObject, FirebaseUrl) {
+    var ref   = new Firebase(FirebaseUrl + 'jobs');
+    var jobs  = $firebaseArray(ref);
+    return jobs;
+  })
+
+
   .factory('Currency', function($firebaseArray, $firebaseObject, FirebaseUrl) {
 
-    var ref = new Firebase(FirebaseUrl + 'currency/list');
+    var ref = new Firebase(FirebaseUrl + 'currency');
     var currency = $firebaseArray(ref);
 
     return currency;

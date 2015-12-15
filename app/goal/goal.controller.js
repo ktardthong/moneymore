@@ -67,7 +67,7 @@ angular.module('App')
       console.log(goalCtrl.travel.goalDate);
       console.log(goalCtrl.travel.targetDate);
 
-      goalCtrl.user.userGoal(profile.$id).$add({
+      goalCtrl.user.userGoal(goalCtrl.profile.$id).$add({
         type:         'travel',
         destination:  goalCtrl.travel.whereto,
         budget:       goalCtrl.travel.amount,
@@ -84,7 +84,7 @@ angular.module('App')
         saving:         goalCtrl.profile.userPlan.saving,
         bill:           goalCtrl.profile.userPlan.bill,
         goalSaving:     goalCtrl.profile.userPlan.goalSaving + goalCtrl.travel.travelMthlySaving,
-        mthSpendable:   goalCtrl.user.spendable(profile.$id) - goalCtrl.travel.travelMthlySaving,
+        mthSpendable:   goalCtrl.user.spendable(goalCtrl.profile.$id) - goalCtrl.travel.travelMthlySaving,
         dailySpendable: goalCtrl.profile.userPlan.dailySpendable - goalCtrl.travel.travelDailySaving,
         updated:        Date.now()
       });

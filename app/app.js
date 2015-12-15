@@ -17,7 +17,8 @@ angular
     'ng-mfb',
     'ngMaterial',
     'ngMdIcons',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'flow'
   ])
 
 
@@ -44,7 +45,7 @@ angular
         templateUrl: 'home/home.html',
         resolve: {
           requireNoAuth: function($state, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               $state.go('dashboard');
             }, function(error){
               return;
@@ -59,7 +60,7 @@ angular
         templateUrl: 'auth/login.html',
         resolve: {
           requireNoAuth: function($state, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               $state.go('home');
             }, function(error){
               return;
@@ -73,7 +74,7 @@ angular
         templateUrl: 'home/home.html',
         resolve: {
           auth: function ($state, Users, Auth) {
-            return Auth.$unauth().catch(function () {
+            return Auth.auth.$unauth().catch(function () {
               $state.go('home');
             }, function (error) {
               $state.go('home');
@@ -89,7 +90,7 @@ angular
         templateUrl: 'auth/register.html',
         resolve: {
           requireNoAuth: function($state, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               $state.go('home');
             }, function(error){
               return;
@@ -104,17 +105,46 @@ angular
         templateUrl: 'dashboard/index.html',
         resolve: {
           auth: function($state, Users, Auth){
-            return Auth.$requireAuth().catch(function(){
+            return Auth.auth.$requireAuth().catch(function(){
               $state.go('home');
             });
           },
-          profile: function(Users, Auth){
-            return Auth.$requireAuth().then(function(auth){
-              return Users.getProfile(auth.uid).$loaded();
+          profile: function(Users, Auth,$state){
+            return Auth.auth.$requireAuth().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile) {
+                if (profile.userPlan.complete_setup) {
+                  return profile;
+                } else {
+                  $state.go('start');
+                }
+              });
             });
           }
         }
       })
+
+
+      .state('start', {
+        url: '/start',
+        controller: 'DashboardCtrl as dashboardCtrl',
+        templateUrl: 'setting/setting.html',
+        resolve:{
+          profile: function(Users, Auth,$state) {
+            return Auth.auth.$requireAuth().then(function (auth) {
+              return Users.getProfile(auth.uid).$loaded().then(function (profile) {
+                console.log(profile.User);
+               if (profile.userPlan.complete_setup) {
+                  $state.go('dashboard');
+                }
+                else{
+                 return profile;
+               }
+              });
+            });
+          }
+        }
+      })
+
 
       .state('spendable', {
         url: '/spendable',
@@ -122,12 +152,13 @@ angular
         templateUrl: 'spendable/index.html',
         resolve:{
           profile: function(Users, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               return Users.getProfile(auth.uid).$loaded();
             });
           }
         }
       })
+
 
       .state('trends', {
         url: '/trends',
@@ -135,7 +166,7 @@ angular
         templateUrl: 'trends/index.html',
         resolve:{
           profile: function(Users, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               return Users.getProfile(auth.uid).$loaded();
             });
           }
@@ -148,7 +179,7 @@ angular
         templateUrl: 'bill/index.html',
         resolve:{
           profile: function(Users, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               return Users.getProfile(auth.uid).$loaded();
             });
           }
@@ -161,7 +192,7 @@ angular
         templateUrl: 'goal/index.html',
         resolve:{
           profile: function(Users, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               return Users.getProfile(auth.uid).$loaded();
             });
           }
@@ -174,7 +205,7 @@ angular
         templateUrl: 'creditcard/add.html',
         resolve:{
           profile: function(Users, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               return Users.getProfile(auth.uid).$loaded();
             });
           }
@@ -187,20 +218,17 @@ angular
         templateUrl: 'users/profile.html',
         resolve: {
           auth: function($state, Users, Auth){
-            return Auth.$requireAuth().catch(function(){
+            return Auth.auth.$requireAuth().catch(function(){
               $state.go('home');
             });
           },
           profile: function(Users, Auth){
-            return Auth.$requireAuth().then(function(auth){
+            return Auth.auth.$requireAuth().then(function(auth){
               return Users.getProfile(auth.uid).$loaded();
             });
           }
         }
-      })
-
-
-      ;
+      });
 
     $urlRouterProvider.otherwise('/');
   })

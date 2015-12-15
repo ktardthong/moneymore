@@ -1,0 +1,20 @@
+
+<div layout="row" ng-controller="ProfileCtrl as profileCtrl">
+
+  <!--<div ng-if="profileCtrl.profile.profile_image">
+    <img src="profileCtrl.profile.profile_image">
+  </div>-->
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>First name</label>
+    <input ng-model="profileCtrl.profile.firstname">
+  </md-input-container>
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>First name</label>
+    <input ng-model="profileCtrl.profile.lastname">
+  </md-input-container>
+
+  <md-button class="md-raised md-primary">Save</md-button>
+
+</div>
