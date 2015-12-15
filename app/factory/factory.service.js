@@ -24,6 +24,15 @@ angular.module('App')
 
   })
 
+.factory('Core_categories', function($firebaseArray, $firebaseObject, FirebaseUrl) {
+
+    var ref = new Firebase(FirebaseUrl + 'core_categories');
+    var core_categories = $firebaseArray(ref);
+
+    return core_categories;
+
+  })
+
   .factory('TransTypes', function($firebaseArray, $firebaseObject, FirebaseUrl) {
 
     var ref = new Firebase(FirebaseUrl + 'transTypes');
