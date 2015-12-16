@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('TransactionCtrl', function($state, $rootScope, $q, md5, Auth, Users, Creditcard, Bill, Transaction, Core_categories, PmtTypes, TransTypes) {
+  .controller('TransactionCtrl', function($state, $rootScope, $q, $filter, md5, Auth, Users, Creditcard, Bill, Transaction, Core_categories, PmtTypes, TransTypes) {
 
     var transactionCtrl = this;
 
@@ -21,28 +21,35 @@ angular.module('App')
     transactionCtrl.paymentType.name = 'Cash';
 
     transactionCtrl.selectedBill = {};
+    transactionCtrl.selectedBill.$id = null;
     transactionCtrl.selectedCC = {};
+    transactionCtrl.selectedCC.$id = null;
 
-    console.log(transactionCtrl.creditCards);
+    transactionCtrl.transDate = new Date();
+
+    transactionCtrl.note = null;
+    transactionCtrl.location = null;
 
     //All transaction
     transactionCtrl.userTransaction  = transactionCtrl.transaction.userTransaction(transactionCtrl.profile.$id);
 
     transactionCtrl.addTransaction = function(){
-   		//transactionCtrl.userTransaction.$add
-      console.log({
+   		transactionCtrl.userTransaction.$add({
 	        category:     transactionCtrl.category.name,
 	        amount:   transactionCtrl.amount,
 	        location: transactionCtrl.location,
 	        note:     transactionCtrl.note,
 	        paymentType:      transactionCtrl.paymentType.name,
-	        transDate:     transactionCtrl.transDate,
+	        transDate:     $filter('date')(transactionCtrl.transDate, 'yyyy-MM-dd'),
 	        transactionType:   transactionCtrl.transactionType.name,
 	        locationProvider:   "Google", //by default
-	        createdAt:  moment().format('YYYY-MM-DD H:m:s'),
+	        createdAt:  moment().format('YYYY-MM-DD HH:mm:ss'),
           bill_id: transactionCtrl.selectedBill.$id,
-          cc_id: transactionCtrl.selectedCC.$id
-      });
+          cc_id: transactionCtrl.selectedCC.$id,
+          flg: 1
+      }).then(function(ref) {
+          alert("Saved transaction " + ref.key() + " successfully!");
+        });
     };
 
     transactionCtrl.log = function(text){

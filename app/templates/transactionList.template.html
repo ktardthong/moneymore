@@ -4,10 +4,10 @@
 
   <div ng-repeat="transaction in transactionCtrl.userTransaction  | orderBy:'transDate' " class="md-padding">
 
-    {{transaction.transDate}}
-    {{transaction.category.categoryName}}
-    {{transaction.amount}}
-
+    
+    {{transaction.category}}
+    {{transaction.amount | currency}} |
+    <small>{{transaction.transDate}}</small>
 
   </div>
 

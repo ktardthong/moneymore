@@ -160,10 +160,10 @@ angular
       })
 
 
-      .state('trends', {
-        url: '/trends',
+      .state('spending', {
+        url: '/spending',
         controller: 'DashboardCtrl as dashboardCtrl',
-        templateUrl: 'trends/index.html',
+        templateUrl: 'spending/index.html',
         resolve:{
           profile: function(Users, Auth){
             return Auth.auth.$requireAuth().then(function(auth){

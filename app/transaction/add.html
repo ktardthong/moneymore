@@ -74,5 +74,5 @@ Universal template for adding transaction
 
   <br>
 
-  <md-button class="md-raised md-primary" ng-click="transactionCtrl.addTransaction()">{{ 'KEY_ADDTRANS'|translate }}</md-button>
+  <md-button class="md-raised md-primary" ng-click="transactionCtrl.addTransaction(); dashboardCtrl.rightNavclose()">{{ 'KEY_ADDTRANS'|translate }}</md-button>
 </form>
