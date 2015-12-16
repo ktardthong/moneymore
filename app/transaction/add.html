@@ -4,6 +4,36 @@ Universal template for adding transaction
 
 <form>
 
+  <div class="btn-group btn-block" data-toggle="buttons">
+            <label class="btn btn-primary-outline" ng-repeat="transType in transactionCtrl.transTypes" 
+            ng-class="{'active':transType.name == transactionCtrl.transactionType.name}"
+            ng-click="transactionCtrl.transactionType = transType" ng-model="transactionCtrl.transactionType" ng-value="transType"
+            >
+                <input type="radio">
+                  {{transType.name}}
+            </label>
+  </div>
+
+  <div class="btn-group btn-block" data-toggle="buttons">
+            <label class="btn btn-primary-outline" ng-repeat="pmtType in transactionCtrl.pmtTypes" 
+            ng-model="transactionCtrl.paymentType"  ng-value="pmtType" ng-click="transactionCtrl.paymentType = pmtType"
+            ng-class="{'active':pmtType.name == transactionCtrl.paymentType.name}">
+                <input type="radio">
+                  {{pmtType.name}}
+            </label>
+  </div>
+
+  <p>
+            <md-select ng-show="transactionCtrl.transactionType.name=='Bill'" ng-model="transactionCtrl.selectedBill"  placeholder="-- Select Bill --">
+                <md-option ng-value="bill" ng-repeat="bill in transactionCtrl.bills">{{bill.name}} {{ bill.category}} {{ bill.amount }}</md-option>
+            </md-select>
+  </p>
+
+   <p>
+            <md-select ng-show="transactionCtrl.paymentType.name=='Credit Card'" ng-model="transactionCtrl.selectedCC"  placeholder="-- Select Credit Card --">
+                <md-option ng-value="cc" ng-repeat="cc in transactionCtrl.creditCards">{{cc.Issuer}} {{ cc.Type}} {{ cc.CardLimit }}</md-option>
+            </md-select>
+  </p>
 
    <md-input-container md-no-float>
     <label>{{ 'KEY_AMOUNT'|translate }}</label>
@@ -14,63 +44,10 @@ Universal template for adding transaction
 
           <label>{{ 'KEY_CATEGORIES'|translate }}</label>
 
-          <md-select ng-model="transactionCtrl.category">
+          <md-select required ng-model="transactionCtrl.category">
             <md-option value="">---Please select---</md-option>
             <md-option ng-repeat="cate in transactionCtrl.core_categories" ng-value="cate">
               {{ cate.name}}
-            </md-option>
-          </md-select>
-  </md-input-container>
-<!-- 
-  <md-input-container flex>
-
-          <label>{{ 'KEY_TRANSTYPE'|translate }}</label>
-
-          <md-select ng-model="transactionCtrl.transactionType">
-            <md-option value="">---Please select---</md-option>
-            <md-option ng-repeat="transType in transactionCtrl.transTypes">
-              {{transType.name}}
-            </md-option>
-          </md-select>
-
-          
-ng-class="{'active':transType.name == 'Expense'}" 
-
-  </md-input-container> -->
-
-  <div class="btn-group btn-block" data-toggle="buttons">
-            <label class="btn btn-primary-outline" ng-repeat="transType in transactionCtrl.transTypes" 
-            ng-model="transactionCtrl.transactionType"
-            >
-                <input type="radio" ng-value="transType" 
-                ng-checked="transType.name==transactionCtrl.transactionType.name"
-                >
-                  {{transType.name}}
-            </label>
-  </div>
-
-  <!-- <md-radio-group ng-model="transactionCtrl.transactionType">
-
-    <md-button data-toggle="buttons" 
-      ng-repeat="transType in transactionCtrl.transTypes" 
-      ng-value="transType.name"  
-      class="md-primary nosubmit" 
-      ng-class="{'active':transType.name == transactionCtrl.transactionType}"
-      ng-style="{'display':'inline'}" 
-      ng-click="md-hue-2">
-      {{transType.name}}
-    </md-button>
-
-  </md-radio-group>
- -->
-  <md-input-container flex>
-
-          <label>{{ 'KEY_PMTTYPE'|translate }}</label>
-
-          <md-select ng-model="transactionCtrl.paymentType">
-            <md-option value="">---Please select---</md-option>
-            <md-option ng-repeat="pmtType in transactionCtrl.pmtTypes" ng-value="pmtType">
-              {{pmtType.name}}
             </md-option>
           </md-select>
   </md-input-container>
@@ -93,7 +70,7 @@ ng-class="{'active':transType.name == 'Expense'}"
   </md-input-container>
 
 
-  <md-datepicker ng-model="transactionCtrl.transDate" md-placeholder="{{ 'KEY_TRANSDATE'|translate }}"></md-datepicker>
+  <md-datepicker required ng-model="transactionCtrl.transDate" md-placeholder="{{ 'KEY_TRANSDATE'|translate }}"></md-datepicker>
 
   <br>
 

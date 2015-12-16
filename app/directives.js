@@ -124,7 +124,7 @@ angular.module('App')
       transclude: true,
       // controller: 'SpendableCtrl as spendableCtrl',
       // templateUrl: '/templates/addTransaction.template.html',
-      controller: 'TransactionCtrl as transactionCtrl',
+      //controller: 'TransactionCtrl as transactionCtrl',
       templateUrl: '/transaction/add.html',
     };
   })
@@ -174,7 +174,7 @@ angular.module('App')
     return {
       restrict: 'E',
       transclude: true,
-      controller: 'TransactionCtrl as transactionCtrl',
+      // controller: 'TransactionCtrl as transactionCtrl',
       templateUrl: '/templates/transactionList.template.html',
     };
   });
