@@ -6,6 +6,7 @@ angular.module('App')
     'KEY_TRANSACTION':'Transaction',
     'KEY_BILL':       'Bill',
     'KEY_TRENDS':     'Trends',
+    'KEY_SPENDING':     'Spending',
     'KEY_CREDITCARD': 'Credit cards',
     'KEY_SETTING':    'Setting',
     'KEY_CATEGORIES': 'Categories',
