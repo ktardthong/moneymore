@@ -14,12 +14,28 @@ angular
     'angular-md5',
     'ui.router',
     'chart.js',
-    'ng-mfb',
+
     'ngMaterial',
     'ngMdIcons',
     'pascalprecht.translate',
     'flow'
   ])
+
+  .config(['flowFactoryProvider', function (flowFactoryProvider) {
+    flowFactoryProvider.defaults = {
+      target: '#upload/',
+      permanentErrors: [500, 501],
+      maxChunkRetries: 1,
+      chunkRetryInterval: 5000,
+      simultaneousUploads: 1
+    };
+    // You can also set default events:
+    flowFactoryProvider.on('catchAll', function (event) {
+      console.log(">>> cate Event "+event);
+    });
+    // Can be used with different implementations of Flow.js
+    // flowFactoryProvider.factory = fustyFlowFactory;
+  }])
 
 
   /*
@@ -33,12 +49,14 @@ angular
   })
 
 
-
-
   /************************************************************
    * StateProvider Config
    *************************************************************/
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
+    /*$locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });*/
     $stateProvider
       .state('home', {
         url: '/',
@@ -112,9 +130,18 @@ angular
           profile: function(Users, Auth,$state){
             return Auth.auth.$requireAuth().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile) {
-                if (profile.userPlan.complete_setup) {
+                if (profile.userPlan.complete_setup == true) {
                   return profile;
                 } else {
+                  Users.userRef.child(auth.uid+'userPlan').set({
+                    income:         0,
+                    saving:         0,
+                    bill:           0,
+                    goal:           0,
+                    mthSpendable:   0,
+                    dailySpendable: 0,
+                    complete_setup: false
+                  });
                   $state.go('start');
                 }
               });
@@ -132,11 +159,19 @@ angular
           profile: function(Users, Auth,$state) {
             return Auth.auth.$requireAuth().then(function (auth) {
               return Users.getProfile(auth.uid).$loaded().then(function (profile) {
-                console.log(profile.User);
-               if (profile.userPlan.complete_setup) {
+               if (profile.userPlan.complete_setup == true) {
                   $state.go('dashboard');
                 }
                 else{
+                 Users.userRef.child(auth.uid+'/userPlan').set({
+                   income:         0,
+                   saving:         0,
+                   bill:           0,
+                   goal:           0,
+                   mthSpendable:   0,
+                   dailySpendable: 0,
+                   complete_setup: false
+                 });
                  return profile;
                }
               });
@@ -186,6 +221,7 @@ angular
         }
       })
 
+
       .state('goal', {
         url: '/goal',
         controller: 'DashboardCtrl as dashboardCtrl',
@@ -198,6 +234,26 @@ angular
           }
         }
       })
+
+
+      .state('goalEdit',{
+        url: '/goal/:goalID/:goalLocation',
+        templateUrl: 'goal/edit.html',
+        controller: 'DashboardCtrl as dashboardCtrl',
+        resolve:{
+          profile: function(Goal, Auth,Users){
+            return Auth.auth.$requireAuth().then(function(auth) {
+              return Users.getProfile(auth.uid).$loaded();
+            });
+          },
+          data: function(Goal, Auth,$stateParams){
+            return Auth.auth.$requireAuth().then(function(auth) {
+              return Goal.getDetail(auth.uid,$stateParams.goalID).$loaded();
+            });
+          }
+        }
+      })
+
 
       .state('creditcard', {
         url: '/creditcard',
@@ -230,7 +286,9 @@ angular
         }
       });
 
+    //$locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
+
   })
 
 

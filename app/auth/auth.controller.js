@@ -40,6 +40,8 @@ angular.module('App')
     });
 
 
+
+
     //Register with facebook
     authCtrl.registerFB = function(){
       authCtrl.auth.ref.authWithOAuthPopup("facebook", function(error, authData) {

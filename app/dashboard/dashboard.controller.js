@@ -20,6 +20,11 @@ angular.module('App')
 
     dashboardCtrl.date = new Date();
 
+    dashboardCtrl.isDefined = function(value){
+        angular.isDefined(value);
+    }
+
+
     /* Get User location */
     $http.get('http://ipinfo.io/json').
       success(function(data) {

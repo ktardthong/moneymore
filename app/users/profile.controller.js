@@ -8,6 +8,15 @@ angular.module('App')
     profileCtrl.currency  = Currency;
 
 
+    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+      event.preventDefault();//prevent file from uploading
+    });
+
+
+
+    //Init value
+    profileCtrl.firstname   = profileCtrl.profile.firstname;
+    profileCtrl.lastname    = profileCtrl.profile.lastname;
 
     //Userplan
     profileCtrl.income  = profileCtrl.profile.userPlan.income ;
@@ -77,7 +86,6 @@ angular.module('App')
     profileCtrl.updateProfile = function(){
       profileCtrl.profile.firstname = profileCtrl.firstname;
       profileCtrl.profile.lastname  = profileCtrl.lastname;
-      profileCtrl.profile.emailHash = md5.createHash(profileCtrl.email);
       profileCtrl.profile.$save();
 
     };

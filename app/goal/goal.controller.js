@@ -1,17 +1,28 @@
 angular.module('App')
   .controller('GoalCtrl', function($rootScope, $state,$scope, $http,Auth,Creditcard,
-                                        Users,
+                                        Users,Goal,
                                         $mdDialog) {
 
     var goalCtrl  = this;
     goalCtrl.user = Users;
-
+    goalCtrl.goal = Goal;
 
     goalCtrl.profile = $rootScope.profile;
 
     //Services
     goalCtrl.userGoals = goalCtrl.user.userGoal(goalCtrl.profile.$id);
     //End services
+
+
+    goalCtrl.persons =[1,2,3,4,5,6,7,8,9,10];
+    goalCtrl.nights = function(){
+      var range = [];
+      for(var i=1;i<=31;i++) {
+        range.push(i);
+      }
+      return range;
+    }
+
 
 
     goalCtrl.goalContainer ='';
@@ -62,6 +73,26 @@ angular.module('App')
       return data;
     };
 
+    //Update Goal
+    goalCtrl.travel.updateGoal = function(id) {
+      console.log(goalCtrl.profile.$id + id);
+
+      goalCtrl.goal.ref($rootScope.profile.$id,id).update({
+        budget:       goalCtrl.travel.amount,
+        /*persons:      goalCtrl.travel.persons,
+        nights:       goalCtrl.travel.nights,
+        dailySaving:  goalCtrl.travel.travelDailySaving,
+        duration_day: goalCtrl.travel.travelSavingDays,
+        duration_mth: goalCtrl.travel.travelSavingMonths,
+        saving_ttl:   goalCtrl.travel.travelDailySaving,
+        saving_period:1,
+        flg:          1,
+        targetDate:   moment(goalCtrl.travel.targetDate).format('YYYY-MM-DD'),
+        updated:      moment().format('YYYY-MM-DD H:m:s')*/
+      });
+    }
+
+
     /*Submit Travel Goal*/
     goalCtrl.travel.submitGoal = function(){
       console.log(goalCtrl.travel.goalDate);
@@ -74,12 +105,14 @@ angular.module('App')
         dailySaving:  goalCtrl.travel.travelDailySaving,
         duration_day: goalCtrl.travel.travelSavingDays,
         duration_mth: goalCtrl.travel.travelSavingMonths,
+        saving_ttl:   goalCtrl.travel.travelDailySaving,
+        saving_period:1,
         flg:          1,
         targetDate:   moment(goalCtrl.travel.targetDate).format('YYYY-MM-DD'),
         created:      moment().format('YYYY-MM-DD H:m:s')
       });
 
-      goalCtrl.user.ref(profile.$id).child("userPlan").set({
+      goalCtrl.user.ref(goalCtrl.profile.$id).child("userPlan").set({
         income:         goalCtrl.profile.userPlan.income,
         saving:         goalCtrl.profile.userPlan.saving,
         bill:           goalCtrl.profile.userPlan.bill,

@@ -1,6 +1,8 @@
 // Generated on 2015-03-11 using generator-angular 0.11.1
 'use strict';
 
+var modRewrite = require('connect-modrewrite');
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -68,7 +70,7 @@ module.exports = function (grunt) {
       options: {
         port: 4000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 4002
       },
       livereload: {
@@ -76,6 +78,7 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
+              modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -85,6 +88,11 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
+              connect().use(
+                '/app/upload',
+                connect.static('./app/upload')
+              ),
+
               connect.static(appConfig.app)
             ];
           }
@@ -238,6 +246,7 @@ module.exports = function (grunt) {
         assetsDirs: [
           '<%= yeoman.dist %>',
           '<%= yeoman.dist %>/images',
+          '<%= yeoman.dist %>/upload',
           '<%= yeoman.dist %>/styles'
         ]
       }

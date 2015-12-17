@@ -11,7 +11,7 @@ step2: {{ step2}}
 <div class="page-wrapper card card_padding inner card_width" ng-show="step1" ng-init="step1 = true">
   <h1>Welcome {{ profileCtrl.profile.firstname }}</h1>
   <div ng-if="profileCtrl.profile.profile_image">
-    <img src="profileCtrl.profile.profile_image">
+    <img ng-src="{{profileCtrl.profile.profile_image}}">
   </div>
 
   <div ng-if="!profileCtrl.profile.profile_image">
@@ -55,17 +55,6 @@ step2: {{ step2}}
              id="lastname"
              aria-invalid="false"
              placeholder="{{profileCtrl.profile.lastname}}"
-             style="">
-    </md-input-container>
-  </div>
-
-  <div layout="row" layout-sm="column">
-    <md-input-container flex>
-      <label for="email">Email</label>
-      <input ng-model="profileCtrl.email"
-             class="ng-pristine ng-valid md-input ng-touched form-control"
-             id="email"
-             aria-invalid="false"
              style="">
     </md-input-container>
   </div>
