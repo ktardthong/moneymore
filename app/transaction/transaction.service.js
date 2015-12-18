@@ -10,6 +10,10 @@ angular.module('App')
 
     userTransaction:function(uid){
       return $firebaseArray(usersRef.child(uid).child("transactions"));
+    },
+
+    userTransactionRef:function(uid){
+      return usersRef.child(uid).child("transactions");
     }
 
   };

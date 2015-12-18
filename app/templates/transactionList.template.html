@@ -2,13 +2,24 @@
 
 <md-content>
 
-  <div ng-repeat="transaction in transactionCtrl.userTransaction  | orderBy:'transDate' " class="md-padding">
+<!--   <div ng-repeat="(key,val) in transactionCtrl.userTransaction  | orderBy : key : true" class="md-padding">
+  		{{val.$id}}
+	  <div ng-repeat="transaction in val | orderBy : 'createdAt' : true">
+	    {{transaction.category}}
+	    {{transaction.amount | currency}}
+	  </div>
+  </div> -->
 
-    
-    {{transaction.category}}
-    {{transaction.amount | currency}} |
-    <small>{{transaction.transDate}}</small>
-
-  </div>
-
+  <md-list style="padding:0; width: 100%;" ng-repeat="(key,val) in transactionCtrl.userTransaction  | orderBy : key : true" >
+	  <md-subheader class="white-font" style="padding:0; width: 100%; background-color: rgb(0,188,212);">
+	  	{{val.$id | date:'EEE, MMM d, yy'}}
+  	  </md-subheader>
+      <md-list-item ng-repeat="transaction in val | orderBy : 'createdAt' : true">
+        <!-- <md-icon md-svg-icon="communication:phone" ng-if="$index !== 2" ng-class="{'md-avatar-icon': $index === 1}"></md-icon>
+        <div class="md-list-item-text" ng-class="{'md-offset': $index == 2 }"> -->
+          {{transaction.category}}
+	      {{transaction.amount | currency}}
+        <!-- </div> -->
+      </md-list-item>
+  </md-list>
 </md-content>

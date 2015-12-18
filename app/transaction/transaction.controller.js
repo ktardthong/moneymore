@@ -30,11 +30,19 @@ angular.module('App')
     transactionCtrl.note = null;
     transactionCtrl.location = null;
 
+
     //All transaction
-    transactionCtrl.userTransaction  = transactionCtrl.transaction.userTransaction(transactionCtrl.profile.$id);
+    transactionCtrl.userTransactionRef  = transactionCtrl.transaction.userTransactionRef(transactionCtrl.profile.$id);
+
+    transactionCtrl.userTransaction = transactionCtrl.transaction.userTransaction(transactionCtrl.profile.$id);
 
     transactionCtrl.addTransaction = function(){
-   		transactionCtrl.userTransaction.$add({
+      // transactionCtrl.userTransaction.$loaded(function() {
+      //   var dateRef = transactionCtrl.userTransaction.push($filter('date')(transactionCtrl.transDate, 'yyyy-MM-dd'));
+      //   dateRef.set({a:'dfdf'}).then(function(ref) {console.log(ref);});
+      // });
+
+   		transactionCtrl.userTransactionRef.child($filter('date')(transactionCtrl.transDate, 'yyyy-MM-dd')).push({
 	        category:     transactionCtrl.category.name,
 	        amount:   transactionCtrl.amount,
 	        location: transactionCtrl.location,
@@ -47,9 +55,14 @@ angular.module('App')
           bill_id: transactionCtrl.selectedBill.$id,
           cc_id: transactionCtrl.selectedCC.$id,
           flg: 1
-      }).then(function(ref) {
-          alert("Saved transaction " + ref.key() + " successfully!");
-        });
+      });
+      // .then(function(ref) {
+      //     alert("Saved transaction " + ref.key() + " successfully!");
+      //   });
+    };
+
+    transactionCtrl.transactionsByDate = function(){
+        transactionCtrl.userTransaction
     };
 
     transactionCtrl.log = function(text){

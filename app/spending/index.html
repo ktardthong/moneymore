@@ -17,7 +17,7 @@
 </md-toolbar>
 
 
-<section class="animated slideInRight" style="position: relative;height: 100%;">
+<!-- <section class="animated slideInRight" style="position: relative;height: 100%;">
   <md-content flex layout-padding layout="row">
     <div layout="column" flex="70">
       <div flex>
@@ -40,7 +40,30 @@
   </md-content>
 
 
+</section> -->
+
+
+<section class="animated slideInRight" layout="row" layout-sm="column">
+    <div flex class="md-padding">
+      <h2>Transactions  <br> <small>Daily Avg: 200, Nov 6- Dec 7</small>
+        <md-button ng-click="dashboardCtrl.toggleRight()"
+                   class="md-primary">
+          <i class="ion-plus-round">{{ 'KEY_ADDTRANS' | translate }}</i>
+        </md-button>
+      </h2>
+       <transaction-trend></transaction-trend>
+    </div>
+
+    <div flex-auto>
+
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools white-font">Recent Transactions</h1>
+      </md-toolbar>
+        <transaction-list></transaction-list>
+    </div>
 </section>
+
+
 
 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
   <!--<md-toolbar class="md-theme-light">

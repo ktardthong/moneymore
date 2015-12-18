@@ -291,6 +291,5 @@ angular
 
   })
 
-
   .constant('FirebaseUrl', 'https://mmxyz.firebaseio.com/');
 
