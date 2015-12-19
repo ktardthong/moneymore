@@ -8,11 +8,20 @@ angular.module('App')
     profileCtrl.currency  = Currency;
 
 
-    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
-      event.preventDefault();//prevent file from uploading
-    });
 
-
+    //Upload Profile Picture
+    profileCtrl.processFiles = function(files) {
+      angular.forEach(files, function (flowFile, i) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (event) {
+          var uri = event.target.result;
+          profileCtrl.user.ref(profileCtrl.profile.$id).update({
+            profile_image: uri,
+          })
+        };
+        fileReader.readAsDataURL(flowFile.file);
+      });
+    }
 
     //Init value
     profileCtrl.firstname   = profileCtrl.profile.firstname;
@@ -42,7 +51,6 @@ angular.module('App')
 
     //Save job
     profileCtrl.saveJob = function(){
-      console.log(profileCtrl.jobSelected);
       profileCtrl.user.ref(profileCtrl.profile.$id).set({
         job:profileCtrl.jobSelected
       })

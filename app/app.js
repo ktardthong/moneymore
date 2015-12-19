@@ -21,22 +21,6 @@ angular
     'flow'
   ])
 
-  .config(['flowFactoryProvider', function (flowFactoryProvider) {
-    flowFactoryProvider.defaults = {
-      target: '#upload/',
-      permanentErrors: [500, 501],
-      maxChunkRetries: 1,
-      chunkRetryInterval: 5000,
-      simultaneousUploads: 1
-    };
-    // You can also set default events:
-    flowFactoryProvider.on('catchAll', function (event) {
-      console.log(">>> cate Event "+event);
-    });
-    // Can be used with different implementations of Flow.js
-    // flowFactoryProvider.factory = fustyFlowFactory;
-  }])
-
 
   /*
    * Material Theme

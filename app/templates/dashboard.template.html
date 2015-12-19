@@ -151,9 +151,18 @@ Dashboard template
     <md-grid-tile-header>
       <h3>{{ 'KEY_SETTING' | translate }}</h3>
     </md-grid-tile-header>
+
     <h2 class="text-center">
-      <i class="material-icons md-48">settings</i>
-      <br>
+
+      <img
+          ng-if="dashboardCtrl.profile.profile_image"
+          class="img-responsive"
+          style="max-width:200px"
+          ng-src="{{dashboardCtrl.profile.profile_image}}" />
+
+
+      <!--<i  nf-if="!dashboardCtrl.profile.profile_image"
+          class="material-icons md-48">settings</i>-->
       <small class="text-muted">{{ 'KEY_SETTING' | translate }}</small>
     </h2>
   </md-grid-tile>
