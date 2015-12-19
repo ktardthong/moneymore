@@ -6,7 +6,9 @@
       </div>
     </h2>
     <span flex></span>
-    <md-button ui-sref="profile">profile</md-button>
+    <md-button ui-sref="profile">
+      <img ng-src="{{dashboardCtrl.profile.profile_image}}" width="50px">
+    </md-button>
     <h2 class="text-muted white-font">
     <md-input-container md-no-float>
       <label ng-if="!dashboardCtrl.profile.lang">Language</label>

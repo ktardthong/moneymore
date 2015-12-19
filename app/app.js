@@ -222,19 +222,33 @@ angular
 
       .state('goalEdit',{
         url: '/goal/:goalID/:goalLocation',
-        templateUrl: 'goal/edit.html',
-        controller: 'DashboardCtrl as dashboardCtrl',
+
+        views:{
+
+          '':{
+            templateUrl: 'goal/edit.html',
+            controller: 'DashboardCtrl as dashboardCtrl',
+          },
+          'body@goalEdit':{
+            templateUrl: 'goal/edit_view.html',
+            controller: 'GoalEdit as goalEdit',
+            resolve:{
+              edit: function(Goal, Auth,$stateParams){
+                return Auth.auth.$requireAuth().then(function(auth) {
+                  return Goal.getDetail(auth.uid,$stateParams.goalID).$loaded();
+                });
+              }
+            }
+          }
+        },
+
         resolve:{
           profile: function(Goal, Auth,Users){
             return Auth.auth.$requireAuth().then(function(auth) {
               return Users.getProfile(auth.uid).$loaded();
             });
           },
-          data: function(Goal, Auth,$stateParams){
-            return Auth.auth.$requireAuth().then(function(auth) {
-              return Goal.getDetail(auth.uid,$stateParams.goalID).$loaded();
-            });
-          }
+
         }
       })
 

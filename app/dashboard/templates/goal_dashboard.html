@@ -1,11 +1,9 @@
 <!-- Dashboard Goal -->
 <div layout="column" md-rowspan="3" md-colspan="2" md-colspan-sm="1"
      ng-repeat="goal in goalCtrl.userGoals | filter:query | orderBy:targetDate | limitTo:2">
-  <div layout="row" class="md-padding">
-    <div flex="">
+  <div layout="row" class="md-padding"
+       style="background-image:url({{goal.goal_image}});background-size: cover; height:100px">
       <md-button class="md-fab md-mini material-icons">flight</md-button>
-    </div>
-    <div flex class="text-center">
       {{goal.targetDate | date:'MMM' }}
       <br>
       <strong>

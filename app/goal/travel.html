@@ -29,6 +29,37 @@
     </md-input-container>
 
 
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Persons</label>
+      <md-select ng-model="goalEdit.persons">
+        <md-option value="">---Please select---</md-option>
+        <md-option ng-repeat="n in goalCtrl.pax" ng-value="n">
+          {{ n }}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <md-select ng-model="goalEdit.nights">
+      <md-option value="">---Please select---</md-option>
+      <md-option ng-repeat="n in goalCtrl.stay()" ng-value="n">
+        {{ n }}
+      </md-option>
+    </md-select>
+
+    <div
+      flex
+      flow-init
+      flow-name="uploader.flow"
+      flow-files-added="goalCtrl.processFiles($files)">
+      <img class="img-responsive"
+           style="max-width:200px"
+           flow-img="image"
+           />
+      <br/>
+      <img flow-img="$flow.files[0]" class="img-responsive" />
+      <button flow-btn type="file">Upload Images</button>
+    </div>
+
     <md-content>
       <md-datepicker ng-model="goalCtrl.travel.targetDate"
                      md-min-date="goalCtrl.date"
@@ -39,8 +70,8 @@
 
 
 
-
-    <div ng-if="goalCtrl.travel.travelSpendableChange >0">
+    <md-button class="md-raised md-primary">Create</md-button>
+    <div ng-if="">
       To save for your trip you will need to save
       {{goalCtrl.travel.travelDailySaving | currency: ''}}
       per day

@@ -1,4 +1,78 @@
 angular.module('App')
+
+
+  .controller('GoalEdit', function($rootScope, $state,$scope, $http,Auth,edit,Goal) {
+
+    var goalEdit = this;
+
+    goalEdit.profile    = $rootScope.profile;
+    goalEdit.goal       = Goal;
+    goalEdit.goal_edit  = edit;
+
+    //Init Vars
+    goalEdit.dailySaving    = goalEdit.goal_edit.dailySaving;
+    goalEdit.targetDate     = new Date(goalEdit.goal_edit.targetDate);
+    goalEdit.duration_day   = goalEdit.goal_edit.duration_day;
+
+    //Upload Picture
+    goalEdit.processFiles = function(files,id) {
+      angular.forEach(files, function (flowFile, i) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (event) {
+          var uri = event.target.result;
+          goalEdit.goal.ref(goalEdit.profile.$id,id).update({
+            goal_image: uri,
+          })
+        };
+        fileReader.readAsDataURL(flowFile.file);
+      });
+    }
+
+    //Utils
+    goalEdit.pax =[1,2,3,4,5,6,7,8,9,10];
+    goalEdit.stay = function(){
+      var range = [];
+      for(var i=1;i<=31;i++) {
+        range.push(i);
+      }
+      return range;
+    }
+
+
+    //Recalculating goal feasibility
+    goalEdit.reCal = function(){
+
+      if(!goalEdit.targetDate){
+        var targetDate = goalEdit.goal_edit.targetDate;
+        goalEdit.dailySaving  = goalEdit.amount/$rootScope.checkTargetDate(targetDate).diffDays;
+        goalEdit.duration_day = $rootScope.checkTargetDate(targetDate).diffDays;
+
+      }
+      else{
+        var targetDate = goalEdit.targetDate;
+        goalEdit.selectedDate = targetDate;
+        goalEdit.dailySaving = goalEdit.amount/$rootScope.checkTargetDate(targetDate).diffDays;
+        goalEdit.duration_day = $rootScope.checkTargetDate(targetDate).diffDays;
+      }
+    }
+
+
+    goalEdit.updateGoal = function(goal_id) {
+      goalEdit.goal.ref($rootScope.profile.$id,goal_id).update({
+        budget:       goalEdit.amount,
+        persons:      goalEdit.persons,
+         nights:       goalEdit.nights,
+         dailySaving:  goalEdit.dailySaving,
+         duration_day: goalEdit.duration_day,
+         targetDate:   goalEdit.targetDate,
+         updated:      moment().format('YYYY-MM-DD H:m:s')
+      });
+    }
+
+  })
+
+
+
   .controller('GoalCtrl', function($rootScope, $state,$scope, $http,Auth,Creditcard,
                                         Users,Goal,
                                         $mdDialog) {
@@ -12,16 +86,6 @@ angular.module('App')
     //Services
     goalCtrl.userGoals = goalCtrl.user.userGoal(goalCtrl.profile.$id);
     //End services
-
-
-    goalCtrl.persons =[1,2,3,4,5,6,7,8,9,10];
-    goalCtrl.nights = function(){
-      var range = [];
-      for(var i=1;i<=31;i++) {
-        range.push(i);
-      }
-      return range;
-    }
 
 
 
@@ -42,13 +106,50 @@ angular.module('App')
       travelDailySaving:0,
       travelSavingDays:'',
       travelSavingMonths:'',
-      travelSpendableChange: ''
+      travelSpendableChange: '',
+      goal_image:''
     };
+
+
+    goalCtrl.pax =[1,2,3,4,5,6,7,8,9,10];
+    goalCtrl.stay = function(){
+      var range = [];
+      for(var i=1;i<=31;i++) {
+        range.push(i);
+      }
+      return range;
+    }
+
+    //Recalculate progress
+    goalCtrl.recalProgress = function(data){
+      var daySave = $rootScope.checkTargetDate(data.created).diffDays;
+      goalCtrl.goal.ref($rootScope.profile.$id,data.$id).update({saving_ttl: data.dailySaving * daySave});
+    }
+
+
+    //Days until the target date
+    goalCtrl.diffDays = function(data){
+      return $rootScope.checkTargetDate(data).diffDays;
+    }
+
+    //Upload Picture
+    goalCtrl.processFiles = function(files,id) {
+      angular.forEach(files, function (flowFile, i) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (event) {
+          var uri = event.target.result;
+          goalCtrl.travel.goal_image = uri;
+          /*goalCtrl.goal.ref(goalCtrl.profile.$id,id).update({
+            goal_image: uri,
+          })*/
+        };
+        fileReader.readAsDataURL(flowFile.file);
+      });
+    }
 
 
     /* Daily Saving Travel */
     goalCtrl.travel.dailySaving = function(date){
-
       var data = goalCtrl.checkTargetDate(date);
       goalCtrl.travel.goalDate           = data.targetDate;
       goalCtrl.travel.travelDailySaving  = goalCtrl.travel.amount/data.diffDays;
@@ -60,7 +161,7 @@ angular.module('App')
 
 
     /*Check for days and months diff for target date*/
-    goalCtrl.checkTargetDate = function(date){
+    $rootScope.checkTargetDate = function(date){
 
       var now         = moment();
       var target      = moment(date);
@@ -106,6 +207,7 @@ angular.module('App')
         duration_day: goalCtrl.travel.travelSavingDays,
         duration_mth: goalCtrl.travel.travelSavingMonths,
         saving_ttl:   goalCtrl.travel.travelDailySaving,
+        goal_image:   goalCtrl.travel.goal_image,
         saving_period:1,
         flg:          1,
         targetDate:   moment(goalCtrl.travel.targetDate).format('YYYY-MM-DD'),
