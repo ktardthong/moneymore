@@ -56,6 +56,12 @@ angular.module('App')
           cc_id: transactionCtrl.selectedCC.$id,
           flg: 1
       });
+      transactionCtrl.transaction.userSpendableRef(transactionCtrl.profile.$id).child(moment().format('YYYY-MM-DD'))
+        .set({
+        spendable:  transactionCtrl.profile.userPlan.dailySpendable - transactionCtrl.amount,
+        created:    moment().format('YYYY-MM-DD'),
+        updated:    moment().format('YYYY-MM-DD HH:mm:ss'),
+      });
       // .then(function(ref) {
       //     alert("Saved transaction " + ref.key() + " successfully!");
       //   });

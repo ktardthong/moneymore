@@ -20,8 +20,7 @@ angular.module('App')
       },
 
       checkBillPaid:function(uid,$id){
-        return $firebaseArray(ref.child(uid).child('bill_tracker').child(moment()
-                              .format('YYYYMM'))
+        return $firebaseArray(ref.child(uid).child('bill_tracker').child(moment().format('YYYYMM'))
                               .orderByChild('bill_id')
                               .equalTo($id));
       },

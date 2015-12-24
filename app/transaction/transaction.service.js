@@ -8,6 +8,10 @@ angular.module('App')
 
     user: usersRef,
 
+    userSpendableRef:function(uid){
+      return usersRef.child(uid).child("spendable");
+    },
+
     userTransaction:function(uid){
       return $firebaseArray(usersRef.child(uid).child("transactions"));
     },

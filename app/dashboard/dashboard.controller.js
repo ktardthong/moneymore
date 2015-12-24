@@ -7,9 +7,7 @@ angular.module('App')
     var dashboardCtrl = this;
 
 
-
-
-    $rootScope.profile = profile;
+    $rootScope.profile        = profile;
     dashboardCtrl.jobs        = Jobs,
     dashboardCtrl.profile     = profile;
     dashboardCtrl.creditcard  = Creditcard;
@@ -25,6 +23,7 @@ angular.module('App')
     }
 
 
+
     /* Get User location */
     $http.get('http://ipinfo.io/json').
       success(function(data) {
@@ -34,10 +33,13 @@ angular.module('App')
     dashboardCtrl.doughData   = dashboardCtrl.user.doughData;
     dashboardCtrl.doughLabels = dashboardCtrl.user.doughLabels;
 
+
     //Call services
-    dashboardCtrl.userCards = dashboardCtrl.user.userCard(profile.$id);
-    dashboardCtrl.userGoals = dashboardCtrl.user.userGoal(profile.$id);
-    dashboardCtrl.billTracker = dashboardCtrl.user.billTracker(profile.$id);
+    dashboardCtrl.userCards         = dashboardCtrl.user.userCard(profile.$id);
+    dashboardCtrl.userGoals         = dashboardCtrl.user.userGoal(profile.$id);
+    dashboardCtrl.billTracker       = dashboardCtrl.user.billTracker(profile.$id);
+    dashboardCtrl.currentSpendable  = dashboardCtrl.user.todaySpendable(profile.$id);
+    console.log(dashboardCtrl.currentSpendable);
     //end services
 
 

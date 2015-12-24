@@ -9,19 +9,23 @@
     <h2 class="text-muted white-font">
       <span>Credit card</span>
     </h2>
-    <md-button ng-click="dashboardCtrl.toggleRight()"
-               class="md-primary md-fab md-mini">
+    <md-button
+      aria-label="Menu"
+      ng-click="dashboardCtrl.toggleRight()"
+      class="md-primary md-fab md-mini">
       <i class="ion-plus-round"></i>
     </md-button>
   </div>
 </md-toolbar>
 
 
-<div class="container md-padding animated slideInRight">
+<div class="container md-padding animated slideInRight" ng-controller="CreditcardCtrl as creditcardCtrl">
+  <!--{{creditcardCtrl.profile}}-->
+  <!--{{dashboardCtrl.profile.creditcard}}-->
+  <div ng-if="!creditcardCtrl.profile.creditcard">nothing here</div>
 
-  <div ng-if="!creditcardCtrl.userCards">nothing here</div>
+  <div ng-if="creditcardCtrl.profile.creditcard">
 
-  <div ng-if="creditcardCtrl.userCards.length >0">
     <md-grid-list
       md-cols-sm="1"
       md-cols-md="2"
@@ -36,18 +40,38 @@
                     md-rowspan="2"
                     md-colspan="2"
                     md-colspan-sm="1"
-                    ng-repeat="card in creditcardCtrl.userCards">
+                    ng-repeat="card in creditcardCtrl.profile.creditcard"
+                    >
         <md-grid-tile-header>
-          <h3>{{ card.Issuer }}</h3>
+
+          <h3>{{ card.issuer.name }}</h3>
         </md-grid-tile-header>
 
+        <md-grid-list class="text-center">
+
+          <img src="{{card.issuer.icon}}" class="img-responsive" width="80px">
+          <canvas
+                  class="chart chart-doughnut"
+                  chart-data= "[tet,test]"
+                  chart-labels="[300, 500, 100]" >
+          </canvas>
+          <br>
+          <i class="{{card.type.icon}}"></i>
+        </md-grid-list>
+
         <md-grid-tile-footer>
+
           <div class="md-actions" layout="row" layout-align="right">
-            <md-button flex>Mark as Paid</md-button>
-            <md-button flex>Remove</md-button>
+            <md-button class="md-primary md-raised"
+                       ng-click="showConfirm($event)"
+                       flex="100"
+                       flex-gt-md="auto">
+              Confirm Dialog
+            </md-button>
           </div>
         </md-grid-tile-footer>
       </md-grid-tile>
+
     </md-grid-list>
 
   </div>

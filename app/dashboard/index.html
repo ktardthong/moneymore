@@ -6,14 +6,16 @@
       </div>
     </h2>
     <span flex></span>
-    <md-button ui-sref="profile">
+    <md-button
+      aria-label="Profile"
+      ui-sref="profile">
       <img ng-src="{{dashboardCtrl.profile.profile_image}}" width="50px">
     </md-button>
     <h2 class="text-muted white-font">
     <md-input-container md-no-float>
       <label ng-if="!dashboardCtrl.profile.lang">Language</label>
       <label ng-if="dashboardCtrl.profile.lang">{{dashboardCtrl.profile.lang}}</label>
-      <md-select ng-model="ctrl.userState" class="md-fab md-mini">
+      <md-select ng-model="ctrl.userState" class="md-fab md-mini" aria-label="Languages">
         <md-option ng-click="dashboardCtrl.toggleLang('Eng')">Eng</md-option>
         <md-option ng-click="dashboardCtrl.toggleLang('ไทย')">ไทย</md-option>
       </md-select>

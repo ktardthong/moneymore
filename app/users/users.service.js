@@ -6,8 +6,15 @@ angular.module('App')
 
     var Users = {
 
+      //Get how much Spendable user have for the current day
+      todaySpendable:function(uid){
+        return $firebaseObject(usersRef.child(uid).child("spendable").child(moment().format('YYYY-MM-DD'))
+                                );
+      },
+
       spendable:function(uid){
-        var spendable =  users.$getRecord(uid).userPlan.income - (users.$getRecord(uid).userPlan.saving - users.$getRecord(uid).userPlan.bill);
+        var spendable =  users.$getRecord(uid).userPlan.income -
+                          (users.$getRecord(uid).userPlan.saving - users.$getRecord(uid).userPlan.bill);
         return spendable;
       },
 

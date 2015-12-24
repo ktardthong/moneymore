@@ -1,3 +1,9 @@
+<!--
+
+Add new credit card form
+
+-->
+
 <md-content layout-padding layout="column" layout-sm="column">
 
   <div flex>
@@ -7,40 +13,42 @@
 
         <md-input-container flex>
           <label>Issuer</label>
-          <md-select ng-model="creditcardCtrl.cardIssuerSelected">
+          <md-select ng-model="creditcardCtrl.card.issuer">
             <md-option value="">---Please select---</md-option> <!-- not selected / blank option -->
-            <md-option ng-repeat="issuer in creditcardCtrl.cardIssuer">
-              <img src="{{issuser.Icon}}" class="img-responsive" />{{ issuer.Name}}
+            <md-option ng-repeat="issuer in creditcardCtrl.cardIssuer" ng-value="issuer">
+              <img src="{{issuser.icon}}" class="img-responsive" />{{ issuer.name}}
             </md-option>
           </md-select>
         </md-input-container>
 
         <md-input-container flex>
           <label>Types</label>
-          <md-select ng-model="creditcardCtrl.cardTypeSelected">
+          <md-select ng-model="creditcardCtrl.card.type">
             <md-option value="">---Please select---</md-option> <!-- not selected / blank option -->
-            <md-option ng-repeat="types in creditcardCtrl.cardTypes">
-              {{ types.Name}}
+            <md-option ng-repeat="types in creditcardCtrl.cardTypes" ng-value="types">
+              {{ types.name}}
             </md-option>
           </md-select>
         </md-input-container>
 
         <md-input-container class="flex">
           <label for="creditlimit">Credit limit</label>
-          <input ng-model="creditcardCtrl.cardLimit"
+          <input ng-model="creditcardCtrl.card.card_limit"
                  class="ng-pristine ng-valid md-input ng-touched form-control"
                  id="creditlimit"
                  ng-required="true"
+                 autocomplete="off"
                  aria-invalid="false"
                  style="">
         </md-input-container>
 
         <md-input-container class="flex">
           <label for="cadNote">Note</label>
-          <input ng-model="creditcardCtrl.cardNote"
+          <input ng-model="creditcardCtrl.card.note"
                  class="ng-pristine ng-valid md-input ng-touched form-control"
                  id="cadNote"
                  ng-required="false"
+                 autocomplete="off"
                  aria-invalid="false"
                  style="">
         </md-input-container>

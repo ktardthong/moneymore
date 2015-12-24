@@ -1,5 +1,5 @@
 angular.module('App')
-  .controller('CreditcardCtrl', function($rootScope, $state, md5, Auth, Users,Creditcard) {
+  .controller('CreditcardCtrl', function($rootScope, $state, $mdDialog, md5, Auth, Users,Creditcard) {
 
     var creditcardCtrl = this;
 
@@ -13,15 +13,36 @@ angular.module('App')
     creditcardCtrl.cardTypes   = creditcardCtrl.creditcard.types;
     creditcardCtrl.userCards   = creditcardCtrl.user.userCard(creditcardCtrl.profile.$id);
 
+    // Initial card values
+    creditcardCtrl.card = {
+      issuer:     '',
+      type:       '',
+      card_limit: '',
+      note:       '',
+      created:    moment().format('YYYY-MM-DD')
+    };
+
+    creditcardCtrl.status = '  ';
+    creditcardCtrl.showConfirm = function(ev) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+        .title('Remove Card?')
+        .textContent('All of the banks have agreed to forgive you your debts.')
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Please do it!')
+        .cancel('Sounds like a scam');
+      $mdDialog.show(confirm).then(function() {
+        creditcardCtrl.status = 'You decided to get rid of your debt.';
+      }, function() {
+        creditcardCtrl.status = 'You decided to keep your debt.';
+      });
+    };
+
 
     //Credit card input
     creditcardCtrl.cardAdd = function(){
-      creditcardCtrl.user.userCard(creditcardCtrl.profile.$id).$add({
-        Issuer:   creditcardCtrl.cardIssuerSelected,
-        Type:     creditcardCtrl.cardTypeSelected,
-        CardLimit:creditcardCtrl.cardLimit,
-        Note:     !creditcardCtrl.cardNote?'':creditcardCtrl.cardNote
-      });
+      creditcardCtrl.user.userCard(creditcardCtrl.profile.$id).$add(creditcardCtrl.card);
     };
 
     //Remove Credit card
